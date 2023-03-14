@@ -1,0 +1,100 @@
+{% extends 'owners/base.html' %}
+{% block title %}Bookings{% endblock title %}
+{% load static %}
+
+{% block content %}
+<div class="page-header">
+  <h2>Requests</h2>
+  <nav aria-label="breadcrumb">
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+  </nav>
+</div>
+
+<style>
+  [data-href] {cursor: pointer;}
+</style>
+
+<div class="row">
+    <div class = "table-responsive">
+      <table class="table table-hover bg-light">
+        <thead class="bg-light">
+          <tr>
+            <th class="text-center" style="font-weight: bold; font-size: medium;"> Class </th>
+            <th class="text-center" style="font-weight: bold; font-size: medium;"> RENTER'S INFO </th>
+            <th class="text-center" style="font-weight: bold; font-size: medium;"> PICK-UP </th>
+            <th class="text-center" style="font-weight: bold; font-size: medium;"> DROP-OFF </th>
+            <th class="text-center" style="font-weight: bold; font-size: medium;"> EST. EARNINGS </th>
+            <th class="text-center" style="font-weight: bold; font-size: medium;"> REQUEST STATUS </th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="myTable">
+          {% for car_request in car_requests %}
+            <tr class="text-center clickable-row{{ car_request.id }}" data-href="{% url 'view_car_request' car_request.id %}">
+              <td> {{ car_request.booked_car.class_name }} </td>
+              <td> {{ car_request.renter_email }} <br> {{ car_request.renter_phone_number }} </td>
+              <td> {{ car_request.pickup_date }} <br> {{ car_request.pickup_location }} </td>
+              <td> {{ car_request.dropoff_date }} <br> {{ car_request.dropoff_location }} </td>
+              <td> ${{ car_request.total_amount }} for {{ car_request.total_days }} days </td>
+              <td> 
+                {% if car_request.request_canceled is True %}
+                  <label class="badge badge-danger">CANCELED</label> 
+                {% else %}
+                  <label class="badge badge-info">PEDNING</label> 
+                {% endif %}
+              </td>
+              <td>
+                <a href="{% url 'view_car_request' car_request.id %}">
+                  <button type="button" class="btn btn-icon btn-link">
+                    <i class="mdi mdi-eye mdi-24px"></i>
+                  </button>
+                </a>
+              </td>
+            </tr>
+            <script>
+              jQuery(document).ready(function($) {
+                $(".clickable-row{{ car_request.id }}").click(function(){
+                  window.location = $(this).data("href");
+                });
+              });
+            </script>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title fs-5 text-center" id="exampleModalLabel">Are you sure you want to delete this car?</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          You won't be able to restore it, so proceed carefully.                    </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <a href="#">
+            <button type="button" class="btn btn-primary">
+              Save changes
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
+{% endblock content %}

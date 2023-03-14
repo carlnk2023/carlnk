@@ -1,0 +1,63 @@
+{% extends 'renters/base.html' %}
+{% block meta %}
+    <title>Contact Us | CarLnk - Get the Best Car Rental Deals in Zimbabwe</title>
+    <meta name="description" content="Contact CarLnk for the best car rental deals in Zimbabwe. Our friendly customer support team is available 24/7 to answer any questions or concerns you may have. Fill out our contact form or give us a call today.">
+{% endblock meta %}
+{% load static %}
+
+{% block content %}
+<style>
+    .ftco-navbar-light {
+        background: #000 !important;
+        position: absolute;
+        top: 0px;
+        left: 0;
+        right: 0;
+        z-index: 3;
+    }
+</style>
+
+<section class="ftco-section">
+    <div class="container mt-5">
+        <div class="row mb-5">
+            <div class="heading-section ftco-animate">
+                <h2 class="mb-3">Contact Us</h2>
+            </div>
+        </div>
+        <div class="row text-dark">
+            <div class="col-md-7">
+              <div class="card shadow-lg p-3 mb-5 bg-white rounded mr-4">
+                <div class="card-body">
+                  <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" name="name" id="name" class="form-control" placeholder="First, Last" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="phone">Phone</label>
+                      <input type="tel" name="phone" id="phone" class="form-control" required>
+                      <div class="form-text">Enter with country code.</div>
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" name="email" id="email" class="form-control" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="message">Message</label>
+                      <textarea name="message" id="message" class="form-control" rows="5" placeholder="Let us know how we can assist you today!" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary btn-block">Submit</button>
+                  </form>
+                </div>
+              </div>
+              
+            </div>
+            <div class="col-md-5" style="display: flex; justify-content: center; align-items: center;">
+              <img src="{% static 'images/logo.png' %}">
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

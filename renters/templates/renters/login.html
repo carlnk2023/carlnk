@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CarLnk | Login</title>
+  <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'login/css/bd-wizard.css' %}">
+</head>
+
+<body>
+{% load crispy_forms_tags %}
+<div class="container mt-5 align-items-center text-center col-md-4" style="margin: auto; width: 40%;">
+    <div id="wizard">
+        <form method="POST">
+            {% csrf_token %}
+            <a href="{% url 'home' %}">
+                <h2 class="section-heading mb-5">CAR<span style="color: #01D28E;">LNK</span></h2>
+            </a>
+            <div class="form-group">
+                {{ form.email|as_crispy_field }}
+            </div>
+            <div class="form-group">
+                {{ form.password|as_crispy_field }}
+            </div>
+            <p class="text-danger">{{ form.errors.password }}</p>
+            <p class="text-danger">{{ form.non_field_errors }}</p>
+            {% for message in messages %}
+                <li><span class="text-white" id="message">{{message}}</span>{{form.message}}</li>
+            {% endfor %}
+            <div class="form-group mt-4">
+                <button class="btn btn-block btn-outline-success btn-lg" type="submit">LOG IN</button>
+            </div>
+            <div class="mt-4 font-weight-light"><a href="#" class="text-muted">Forgot password?</a>
+            </div>
+            <div class="mt-4 font-weight-light"> Don't have an account? <a href="{% url 'signup' %}" class="text-primary">Signup</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="{% static 'login/js/jquery.steps.min.js' %}"></script>
+  <script src="{% static 'login/js/bd-wizard.js' %}"></script>
+
+</body>
+</html>
