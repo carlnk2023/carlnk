@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['carlnk.co','www.carlnk.co']
+ALLOWED_HOSTS = ['carlnk.co','www.carlnk.co', '64.226.67.100']
 
 # DATABASE
 DATABASES = {
@@ -13,9 +13,9 @@ DATABASES = {
         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
         'HOST': os.getenv('DATABASE_HOST'),
         'PORT': os.getenv('DATABASE_PORT'),
-        'OPTIONS': {'sslmode': 'require'},
     }
 }
+
 
 # HTTPS settings
 SESSION_COOKIE_SECURE = True
@@ -24,10 +24,12 @@ SECURE_BROWSER_XSS_FILTER = True
 CSRF_TRUSTED_ORIGINS = ['https://carlnk.co']
 
 
-# Staticfiles
+# Media and Staticfiles
 STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # HSTS settings
 SECURE_HSTS_SECONDS = 31536000 # 1 year
