@@ -1,0 +1,131 @@
+{% extends 'owners/base.html' %}
+{% block title %}Edit Car{% endblock title %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+  .upload-container {
+    position: relative;
+  }
+  .upload-container input {
+      border: 1px dashed #92b0b3;
+      border-radius: 5px;
+      background: #ffffff;
+      outline-offset: -10px;
+      padding: 75px 0px 100px 174px;
+      text-align: center !important;
+      width: 500px;
+  }
+  
+  .upload-container input:hover {
+      background: #f2f4f5;
+  }
+  
+  .upload-container:before {
+      position: absolute;
+      bottom: 50px;
+      left: 160px;
+      content: " or drag and drop new image here. ";
+      color: #01D28E;
+      font-weight: 900;
+  }
+
+</style>
+
+  <div class="page-header">
+    <h2>Edit Class </h2>
+  </div>
+
+  <div class="row">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="form-group">
+              {{ form.class_name|as_crispy_field }}
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="form-group">
+              {{ form.price_per_day|as_crispy_field }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              {{ form.transmission|as_crispy_field }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              {{ form.free_cancellation|as_crispy_field }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group" >
+              {{ form.pickup_location|as_crispy_field }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              {{ form.inventory_available|as_crispy_field }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="form-group upload-container">
+              {{ form.model_image|as_crispy_field }}
+              <div id="id_model_image" class="form-text">
+                The model image will represent all the cars in this class. 
+                Renters will see this image.
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              {{ form.model_name|as_crispy_field }}
+              <div id="id_model_name" class="form-text">
+                e.g. D4D Hilux. Model name should relate to the model image. 
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              {{ form.number_of_seats|as_crispy_field }}
+            </div>                          
+          </div>
+          <div class="row">
+            <div class="form-group">
+              {{ form.large_bags|as_crispy_field }}
+              <div id="id_large_bags" class="form-text">
+                e.g. large suitcase
+              </div>
+            </div>                          
+          </div>
+          <div class="row">
+            <div class="form-group">
+              {{ form.small_bags|as_crispy_field }}
+              <div id="id_small_bags" class="form-text">
+                e.g small suitcase
+              </div>
+            </div>                          
+          </div>
+          <div class="row">
+            <div class="form-group">
+              {{ form.mileage|as_crispy_field }}
+              <div id="id_mileage" class="form-text">
+                Select "0" if unlimited.
+              </div>
+            </div>                          
+          </div>
+        </div>
+        
+        <div class="form-group mt-4">
+          <button type="submit" class="btn btn-success" style="background-color: #01D28E;">DONE</button>
+        </div>
+    </form>
+  </div>
+  </div>
+{% endblock content %}

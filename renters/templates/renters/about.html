@@ -1,0 +1,195 @@
+{% extends 'renters/base.html' %}
+{% block meta %}
+    <title>About | CarLnk - Get the Best Car Rental Deals in Zimbabwe</title>
+    <meta name="description" content="CarLnk is the top car rental marketplace in Zimbabwe. Join us and increase your bookings and revenue by listing your car rental business on our platform. Our user-friendly website makes it easy for travelers to find and book the best car rental deals in Zimbabwe. Partnering with us means greater visibility and access to a wider audience. Join CarLnk today and take your car rental business to the next level.">
+{% endblock meta %}
+{% load static %}
+ 
+{% block content %}
+<style>
+  .ftco-navbar-light {
+      background: #000 !important;
+      position: absolute;
+      top: 0px;
+      left: 0;
+      right: 0;
+      z-index: 3;
+  }
+</style>
+
+<section class="ftco-section">
+    <div class="container mt-5">
+        <div class="row mb-5">
+            <div class="heading-section ftco-animate">
+                <h2 class="mb-3">About Us</h2>
+            </div>
+        </div>
+        <div class="row text-dark">
+            <div class="col-md-7">
+                <h5 class="mb-5">
+                    Welcome to CarLnk, the premier car rental marketplace for Zimbabwe. 
+                    Our platform connects you to multiple car rental providers across the country, 
+                    giving you access to the best deals and hassle-free booking experience. Unlike other 
+                    car rental marketplaces across the globe, we specialize in Zimbabwe, providing you with 
+                    the best prices and high-quality deals tailored to your needs.
+                </h5>
+                <h5 class="mb-5">
+                    At CarLnk, we understand that finding the right car rental can be a 
+                    time-consuming process, which is why we've made it our mission to simplify 
+                    and streamline the process for you. With access to all car categories and types, 
+                    from budget-friendly options to luxury vehicles, we're confident that you'll find 
+                    the perfect rental for your needs.
+                </h5>
+                <h5>
+                    So whether you're a local looking to explore Zimbabwe or a visitor planning a trip, 
+                    CarLnk has got you covered. Join our community today and experience the convenience 
+                    and ease of booking with us.
+                </h5>
+            </div>
+            <div class="col-md-5" style="display: flex; justify-content: center; align-items: center;">
+              <img src="{% static 'images/logo.png' %}">
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-7 text-center heading-section ftco-animate">
+                <span class="subheading">Simple - Cheap - Efficicent</span>
+                <h2 class="mb-3">Why choose us?</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="services services-2 w-100 text-center">
+                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
+                    <div class="text w-100">
+                        <h3 class="heading mb-2" style="font-weight: bold; font-size: x-large;">No hidden fees</h3>
+                        <h5 style="font-size: large;">No commissions, mark-ups, or booking fees to pay</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="services services-2 w-100 text-center">
+                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-handshake"></span></div>
+                    <div class="text w-100">
+                        <h3 class="heading mb-2" style="font-weight: bold; font-size: x-large;">Exclusive Cars</h3>
+                        <h5 style="font-size: large;">We will meet your needs, whether you're seeking economical vehicles or high-end luxury cars.</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="services services-2 w-100 text-center">
+                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-rent"></span></div>
+                    <div class="text w-100">
+                        <h3 class="heading mb-2" style="font-weight: bold; font-size: x-large;">Book Directly</h3>
+                        <h5 style="font-size: large;">Secure a reservation with our partners directly, and receive the best rates available.</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="text-center heading-section ftco-animate">
+                <span class="subheading">Rent with ease - list with confidence</span>
+                <h2 class="mb-3">Maximize Your Car Rental Experience</h2>
+            </div>
+        </div>
+        <div class="row text-dark mb-5">
+          <div class="col-md-6 mb-4">
+            <div>
+              <div>
+                <h2 class="card-title mb-4" style="font-weight: bold;"><i class="fas fa-users fa-fw mr-2"></i> Users</h2>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-search fa-fw mr-2"></i>Search for the perfect rental</li>
+                  <hr>
+                  <li><i class="fas fa-car fa-fw mr-2"></i>Access to a wide range of vehicle types</li>
+                  <hr>
+                  <li><i class="fas fa-map-marker-alt fa-fw mr-2"></i>Find rentals in convenient locations</li>
+                  <hr>
+                  <li><i class="fas fa-star fa-fw mr-2"></i>Read reviews and ratings from previous renters</li>
+                  <hr>
+                  <li><i class="fas fa-comments fa-fw mr-2"></i>Contact rental partners directly</li>
+                  <hr>
+                  <li><i class="fas fa-money-bill-wave fa-fw mr-2"></i>Seamless bookings</li>
+                </ul>
+                <div class="text-center">
+                    <button class="btn btn-outline-success btn-lg btn-block" style="font-weight: bold;">Rent a Car</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+              <div class="card-body">
+                <h2 class="card-title mb-5" style="font-weight: bold;"><i class="fas fa-car fa-fw fa-1x mr-2"></i>For Partners</h2>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-users fa-fw fa-1x mr-2"></i>Access to a large pool of potential renters</li>
+                  <hr style="background-color: rgba(0, 0, 0, 0.5);">
+                  <li><i class="fas fa-chart-line fa-fw mr-2"></i>Boost your business with increased exposure</li>
+                  <hr style="background-color: rgba(0, 0, 0, 0.5);">
+                  <li><i class="fas fa-hand-holding-usd fa-fw mr-2"></i>Maximize your earning potential</li>
+                  <hr style="background-color: rgba(0, 0, 0, 0.5);">
+                  <li><i class="fas fa-bullhorn fa-fw mr-2"></i>Marketing support to stand out from the competition</li>
+                  <hr style="background-color: rgba(0, 0, 0, 0.5);">
+                  <li><i class="fas fa-cogs fa-fw mr-2"></i>Streamlined operations with our easy-to-use platform</li>
+                </ul>
+                <div class="text-center">
+                    <button class="btn btn-success btn-lg btn-block" style="font-weight: bold;">Join CarLnk</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row text-dark">
+            <div class="col-md-6">
+                <div class="card shadow-lg p-3 mb-5 bg-white rounded mr-4">
+                  <div class="card-body">
+                    <h2 class="card-title mb-3" style="font-weight: bold;"><i class="fas fa-question-circle fa-fw fa-1x mr-2"></i>How to rent</h2>
+                    <ol>
+                        <li>Visit CarLnk.com and browse available listings.</li>
+                        <hr>
+                        <li>Select your preferred car rental from the search results.</li>
+                        <hr>
+                        <li>Connect directly with the supplier of the car by clicking on their contact information via email, call or WhatsApp.</li>
+                        <hr>
+                        <li>Discuss the details of your rental with the supplier.</li>
+                        <hr>
+                        <li>Book your car rental and get ready to enjoy your ride!</li>
+                      </ol>
+                      <div class="text-center">
+                        <button class="btn btn-outline-success btn-lg btn-block" style="font-weight: bold;">Let's go</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="col-md-6">
+              <div>
+                <div>
+                  <h2 class="card-title mb-4" style="font-weight: bold;"><i class="fas fa-lightbulb fa-fw mr-2"></i> Remember</h2>
+                  <ul>
+                    <li>Always inspect the car thoroughly before driving off.</li>
+                    <hr>
+                    <li>Deal with the same company listed on CarLnk.</li>
+                    <hr>
+                    <li>Read the rental agreement carefully.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+      </div>
+      
+</section>
+
+
+
+{% endblock content %}

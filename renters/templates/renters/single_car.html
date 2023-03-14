@@ -1,0 +1,271 @@
+{% extends 'renters/base.html' %}
+{% block meta %}
+    <title>{{ car.model_name }} Rental Available | CarLnk</title>
+    <meta name="description" content="Looking for a reliable and affordable car rental in Zimbabwe? Our single car page features detailed information about our top-quality rental cars, including photos, features, and pricing.">
+{% endblock meta %}
+{% load static %}
+
+{% block content %}
+<style>
+  .ftco-navbar-light {
+      background: #000 !important;
+      position: absolute;
+      top: 0px;
+      left: 0;
+      right: 0;
+      z-index: 3;
+  }
+
+  .card .btn {
+    width: calc(100% / 3);
+  }
+  .result:hover {
+    border-color: green;
+    transition: all 0.2s ease-in-out;
+  }
+
+  #rounded-start {
+    border-top-right-radius: 20px;
+  }
+
+  #rounded-end {
+    border-top-left-radius: 20px;
+  }
+
+  #rounded-mid {
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+  }
+
+</style>
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-md-8">
+        <!-- IMAGE OF CAR -->
+        <div style="z-index: 3; align-self: flex-start; min-width: 0px; order: 1; min-height: 400px;height: max-content; flex-grow: 0; flex-shrink: 0; background-image: url({{ car.model_image.url }}); background-repeat: no-repeat; background-position: center center; background-size: cover; width: calc(100% - 0px); margin: 0px; overflow: visible; border-radius: 7px; background-color: rgba(255, 255, 255, 0);">
+          
+        </div>
+
+        <!-- CAR SPECIFCATIONS -->
+        <div class="row mt-4">
+          <div class="col-8 mt-3">
+            <h3 style="font-weight: bold; line-height: 0.5;">{{ car.model_name }}</h3>
+            <small style="font-size: medium;">or similar car</small>
+          </div>
+          <div class="col-4">
+            <h4 class="text-primary float-right" style="font-weight: bold;">USD {{ car.price_per_day }}<span class="text-muted" style="font-weight: normal;"> / day</span></h4>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <h4 style="font-weight: 500;">Car Specs</h4>
+          <div class="row pr-4 pl-4">
+            <hr style="background-color: black;">
+          </div>
+          <div class="col">
+            <ul class="list-unstyled">
+              <li class="text-dark mb-2"><img alt="door" src="{% static 'images/manual-transmission.png' %}" width="8%"> {{ car.transmission }}</li>
+              <li class="text-dark mb-2"><img alt="door" src="{% static 'images/door.png' %}" width="8%"> {{ car.doors }} doors</li>
+            </ul>
+          </div>
+          <div class="col">
+            <ul class="list-unstyled">
+              <li class="text-dark mb-2"><img alt="seat" src="{% static 'images/seat.png' %}" width="8%"> {{ car.number_of_seats }} seats</li>
+              <li class="text-dark mb-2"><img alt="suitcase" src="{% static 'images/suitcase.png' %}" width="8%"> {{ car.bags }} bags</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="row mt-4">
+          <h4 style="font-weight: 500;">Includes</h4>
+          <div class="row pr-4 pl-4">
+            <hr style="background-color: black;">
+          </div>
+          <div class="col">
+            <ul class="list-unstyled">
+              <li class="text-dark"><i class="fas fa-circle-check text-success "></i> Flexible cancellation</li>
+              <li class="text-dark"><i class="fas fa-circle-check text-success"></i>
+                {% if car.mileage_limit == "Unlimited" %}
+                  Unlimited milage
+                {% else %}
+                  {{ car.mileage }}  KM
+                {% endif %}
+              </li>
+              <li class="text-dark"><i class="fas fa-circle-check text-success "></i> Transparent pricing</li>
+            </ul>
+          </div>
+          <div class="col">
+            <ul class="list-unstyled">
+              <li class="text-dark"><i class="fas fa-circle-check text-success "></i> Minimum {{ car.min_days }} day(s) rental</li>
+              <li class="text-dark"><i class="fas fa-circle-check text-success"></i> Fuel options</li>
+              <li class="text-dark"><i class="fas fa-circle-exclamation text-danger"></i> USD {{ car.security_deposit }} security deposit</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <h4 style="font-weight: 500;">Contact Supplier</h4>
+          <div class="row pr-4 pl-4">
+            <hr style="background-color: black;">
+          </div>
+          <div class="btn-group d-none d-md-flex justify-content-between align-items-center">
+            <a href="tel:{{ car.owner.phone_number }}" class="btn btn-lg btn-info mr-1" id="rounded-start"><i class="fas fa-phone fa-xl"></i> Call</a>
+            <a href="https://wa.me/{{ car.owner.whatsapp_number }}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.co%3Cbr%3EI%20am%20interested%20in%20the%20listed%20{{ car.model_name }}%20going%20for%20USD%20{{ car.price_per_day }}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i> WhatsApp</a>
+            <button class="btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#carModal" id="rounded-end"><i class="fas fa-envelope fa-xl"></i> Email</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card shadow mb-4">
+          <div class="card-body">
+            <div class="row text-center mb-4">
+              <h6 class="text-dark" style="font-weight: bold;">Listed by</h6>
+              <div>
+                <img src="{{ car.owner.logo.url }}" alt="..." width="55%">
+              </div>
+              <h5 class="text-dark" style="font-weight: bold;">{{ car.owner.business_name }}</h5>
+              <p class="text-dark"><i class="fas fa-location-dot"></i> {{ car.owner.address }}</p>
+            </div>
+            <div class="btn-group d-none d-md-flex justify-content-between align-items-center">
+              <a href="tel:{{ car.owner.phone_number }}" class="btn btn-lg btn-info mr-1" id="rounded-start"><i class="fas fa-phone fa-xl"></i></a>
+              <a href="https://wa.me/{{ car.owner.whatsapp_number }}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.co%3Cbr%3EI%20am%20interested%20in%20the%20listed%20{{ car.model_name }}%20going%20for%20USD%20{{ car.price_per_day }}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i></a>
+              <button class="btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#carModal" id="rounded-end"><i class="fas fa-envelope fa-xl"></i></button>
+            </div>
+            
+            <div class="d-block d-sm-none position-fixed fixed-bottom">
+              <div class="btn-group d-md-flex d-flex justify-content-between align-items-center w-100">
+                <a href="tel:{{ car.owner.phone_number }}" class="btn btn-lg btn-info mr-1" id="rounded-start"><i class="fas fa-phone fa-xl"></i></a>
+                <a href="https://wa.me/{{ car.owner.whatsapp_number }}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.co%3Cbr%3EI%20am%20interested%20in%20the%20listed%20{{ car.model_name }}%20going%20for%20USD%20{{ car.price_per_day }}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i></a>
+                <button class="btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#carModal" id="rounded-end"><i class="fas fa-envelope fa-xl"></i></button>
+              </div>
+            </div> 
+          </div>
+        </div>
+        <div class="card shadow mb-4">
+          <div class="card-body">
+            <div class="row text-center mb-2">
+              <h4 class="text-center mb-0"><span class="badge bg-primary"><i class="fa-solid fa-star"></i> {{ car.ratings }}</span></h4>
+            </div>
+            <div class="text-center text-dark">
+              <ul class="list-unstyled">
+                <li class="text-dark">Poeple rated this car rental experience with an average rating of {{ car.ratings }} out of 5</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <!-- Email Modal -->
+  <div class="modal fade" id="carModal" tabindex="-1" aria-labelledby="carModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="carModalLabel">Send Enquiry</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="card mb-3 p-2">
+            <div class="row g-0">
+              <div class="card-body">
+                <div class="row card-title">
+                  <div class="col-8">
+                    <h4 class="mt-3" style="font-weight: bold; line-height: 0;">{{ car.model_name }}</h4>
+                    <small style="font-size: medium;">or similar car</small>
+                  </div>
+                  <div class="col-4">
+                    <div>
+                      <img src="{{ car.owner.logo.url }}" alt="logo" width="100%">
+                    </div>
+                  </div>
+                  
+                </div>
+                <h5 class="text-primary" style="font-weight: bold;">USD {{ car.price_per_day }}<span class="text-muted" style="font-weight: normal;"> / day</span></h5>
+                <div class="d-flex">
+                  <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">{{ car.transmission }}</h5>
+                  <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">{{ car.doors }} <img alt="door" src="{% static 'images/door.png' %}" width="50%"></span></h5>
+                  <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">{{ car.number_of_seats }} <img alt="seat" src="{% static 'images/seat.png' %}" width="50%"></span></h5>
+                  <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">{{ car.bags }} <img alt="suitcase" src="{% static 'images/suitcase.png' %}" width="50%"></i></span></h5>
+              </div>
+              </div>
+            </div>
+          </div>
+          <form class="row g-3" id="emailEnquiry">
+            {% csrf_token %}
+            <textarea name="message" style="display: none;">
+              Hello, I'm contacting you through CarLnk <br> I am interested in the listed {{ car.model_name }} going for USD {{ car.price_per_day }}/day.
+            </textarea>
+            <input type="email" name="owner" value="{{ car.owner.user.email }}" style="display: none;">
+            <div class="col-12">
+              <label for="nameInput" class="form-label text-dark">Your Name</label>
+              <input type="text" name="name" class="form-control" id="nameInput" required>
+            </div>
+            <div class="col-md-6">
+              <label for="contactNumberInput" class="form-label text-dark">Contant Number</label>
+              <input type="text" name="phone" class="form-control" id="contactNumberInput" required>
+              <div id="passwordHelpBlock" class="form-text">
+                Include your country code
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="emailInput" class="form-label text-dark">Email</label>
+              <input type="email" name="email" class="form-control" id="emailInput" required>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-success btn-lg" id="submit_button">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    $("#emailEnquiry").submit(function (e) {
+        // preventing from page reload and default actions
+        e.preventDefault();
+        // serialize the data for sending the form data.
+        $form = $(this)
+        var formData = new FormData(this);
+
+        // Button 
+        document.getElementById("submit_button").textContent  = 'Sending...';
+        document.getElementById("submit_button").disabled = true;
+
+        // make POST ajax call
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'send_email_enquiry' %}",
+            data: formData,
+            success: function (response) {
+                // on successfull creating object
+                // 1. clear the form.
+                $("#emailEnquiry").trigger('reset');
+
+                // Button
+                document.getElementById("submit_button").textContent  = 'Submit';
+                document.getElementById("submit_button").disabled = false;
+                
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+
+            error: function (response) {
+              // Button
+                document.getElementById("submit_button").textContent  = 'Submit';
+                document.getElementById("submit_button").disabled = false;
+                // alert the error if any error occured
+                alert("Something wrong happened");
+            }
+        })
+    })
+</script>
+
+</section>
+
+
+{% endblock content %}

@@ -1,0 +1,173 @@
+{% extends 'owners/base.html' %}
+{% block title %}Dashboard{% endblock title %}
+{% load static %}
+
+{% block content %}
+  <div class="page-header">
+    <h2>Booking / ${{ booking.total_amount }} for {{ booking.total_days }} days</h2>
+    <nav aria-label="breadcrumb">
+      <button type="button" class="btn btn-danger btn-fw" data-bs-toggle="modal" data-bs-target="#cancelbookingModal">CANCEL BOOKING</button>
+    </nav>
+  </div>
+
+  <!-- Modal for deleting car -->
+  <div class="modal fade" id="cancelbookingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title fs-5 text-center" id="exampleModalLabel">Are you sure you want to cancel this booking?</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          You won't be able to restore it, so proceed carefully.                    </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <a href="{% url 'cancel_booking' booking.id %}">
+            <button type="button" class="btn btn-primary">
+              Proceed
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="card bg-light">
+      <div class="card-body">
+        <!-- PERSONAL INFORMATION -->
+        <div class="col-lg-12 mb-3">
+          <div class="col-lg-9">
+            <h4>PERSONAL INFORMATION</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="row">
+              <h6 class="text-primary">Name</h6>
+              <p>{{ booking.renter_title }}. {{ booking.renter_name }}</p>
+            </div>
+            
+            
+            <div class="row">
+              <h6 class="text-primary">EMAIL</h6>
+              <p>{{ booking.renter_email }}</p>
+            </div>
+
+          </div>
+
+          <div class="col-lg-4">
+            <div class="row">
+              <h6 class="text-primary">PHONE</h6>
+              <p>{{ booking.renter_phone_number }}</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="row">
+              <h6 class="text-primary">COUNTRY OF RESIDENCE</h6>
+              <p>{{ booking.renter_country }}</p>
+            </div>
+            
+          </div>
+        </div>
+        
+        <!-- GENERAL -->
+        <div class="col-lg-12 mt-4">
+          <div class="col-lg-9">
+            <h4>GENERAL</h4>
+          </div>
+          <div class="col-lg-3">
+            <h4 class="text-danger"></h4>
+          </div>
+          <hr>
+        </div>
+
+        <!-- BOOKING ID -->
+        <div class="row mt-4">
+          <div class="col-lg-6">
+            <div class="row">
+              <h6 class="text-primary">Request ID</h6>
+              <p>{{ booking.id }}</p>
+            </div>
+            <div class="row mt-4">
+              <h6 class="text-primary">Model Name</h6>
+              <p>{{ booking.booked_car.model_name }}</p>
+            </div>
+            <div class="row mt-4">
+              <h6 class="text-primary">Model Class</h6>
+              <p>{{ booking.booked_car.class_name }}</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="row">
+              <h6 class="text-primary">Date of request</h6>
+              <p>{{ booking.date_created }}</p>
+            </div>
+            <div class="row mt-4">
+              <h6 class="text-primary">Request Status</h6>
+              {% if booking.status == "Pending" %}
+                <p class="text-danger">{{ booking.status }}</p> 
+              {% elif booking.status == "Current" %}
+                <p class="text-dark">{{ booking.status }}</p> 
+              {% elif booking.status == "Completed" %}
+                <p class="text-success">{{ booking.status }}</p> 
+              {% else %}
+                <p class="text-danger">{{ booking.status }}</p> 
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- PICK UP INFOMATION -->
+        <div class="col-lg-12 mt-4">
+          <div class="col-lg-9">
+            <h4>PICK-UP INFORMATION</h4>
+          </div>
+        <hr>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-lg-6">
+            <div class="row">
+              <h6 class="text-primary">Pick-up location</h6>
+              <p>{{ booking.pickup_location }}</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="row">
+              <h6 class="text-primary">Pick-up date and time</h6>
+              <p>{{ booking.pickup_date }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DROP-OFF INFORMATION -->
+        <div class="col-lg-12 mt-4">
+          <div class="col-lg-9">
+            <h4>DROP-OFF INFORMATION</h4>
+          </div>
+          <hr>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-lg-6">
+            <div class="row">
+              <h6 class="text-primary">Drop-off location</h6>
+              <p>{{ booking.dropoff_location }}</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="row">
+              <h6 class="text-primary">Drop-off date and time</h6>
+              <p>{{ booking.dropoff_date }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

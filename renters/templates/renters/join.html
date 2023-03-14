@@ -1,0 +1,259 @@
+{% extends 'renters/base.html' %}
+{% block meta %}
+    <title>Join CarLnk and Partner with the Best Car Rental Marketplace in Zimbabwe</title>
+    <meta name="description" content="Join CarLnk and partner with us to boost your car rental business in Zimbabwe. Our platform offers affordable and convenient car rental services to customers, and partnering with us can help increase your visibility and drive more business to your company. Join us now to take advantage of our partnership opportunities and grow your car rental business.">
+{% endblock meta %}
+{% load static %}
+
+{% block content %}
+<style>
+  .ftco-degree-bg {
+  position: relative; }
+  .ftco-degree-bg:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -50px;
+      overflow: visible;
+      width: 100%;
+      height: 0;
+      z-index: 0;
+      -webkit-transform: skewY(-4deg);
+      -moz-transform: skewY(-4deg);
+      -ms-transform: skewY(-4deg);
+      -o-transform: skewY(-4deg);
+      transform: skewY(-4deg);
+      background-color: #f8f9fa;
+      }
+</style>
+ 
+<div class="hero-wrap ftco-degree-bg" style="background-image: url({% static 'images/renters_background_2.jpg' %});" data-stellar-background-ratio="0.5">
+  <div class="overlay" style="opacity: 0.5;"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
+      <div class="col-md-5 d-flex align-items-center">
+        <div class="card p-3 bg-white rounded mr-4 text-dark" style="margin-top: 100px;">
+          <div class="card-body">
+              <h4 class="card-title mb-3" style="font-weight: bold;">Drive your business forward</h4>
+              <form class="row g-3">
+                {% csrf_token %}
+                <div class="col-md-12">
+                  <label for="nameInput" class="form-label">Your Name</label>
+                  <input type="text" name="name" class="form-control" placeholder="First, Last" id="nameInput" required>
+                </div>
+                <div class="col-md-12">
+                  <label for="companyNameInput" class="form-label">Company Name</label>
+                  <input type="text" name="company_name" class="form-control" id="companyNameInput" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="inputState" class="form-label">Job Title</label>
+                  <select id="inputState" name="job_title" class="form-select" required>
+                    <option value="" selected>Choose...</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Miss">Miss</option>
+                    <option value="Ms.">Dr.</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="inputState" class="form-label">Fleet Size</label>
+                  <select id="inputState" name="fleet_size" class="form-select" required>
+                    <option value="" selected>Choose...</option>
+                    <option value="1-10">1-10</option>
+                    <option value="11-50">11-50</option>
+                    <option value="50+">50+</option>
+                  </select>
+                </div>
+                <div class="col-md-12">
+                  <label for="contactNumberInput" class="form-label">Contact Number</label>
+                  <input type="text" name="phone" class="form-control" id="contactNumberInput" required>
+                  <div class="form-text">Enter with country code.</div>
+                </div>
+                <div class="col-md-12">
+                  <label for="emailInput" class="form-label">Email</label>
+                  <input type="email" name="email" class="form-control" placeholder="john@example.com" id="emailInput" readonly>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-outline-success btn-block">Submit</button>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7 ftco-animate mt-1">
+        <div class="text w-100 text-center mb-md-5 pb-md-5">
+          <h1 class="mb-4">Unlock your car rental business's potential</h1>
+          <p style="font-size: 18px;">List your cars, reach more renters, earn more</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <section class="ftco-section ftco-no-pt">
+      <div class="container">
+          <div class="row justify-content-center mt-5 mb-5">
+              <div class="col-md-7 text-center heading-section ftco-animate">
+                  <span class="subheading">Unlock your car rental business's potential</span>
+                  <h2 class="mb-3">Why Join CarLnk?</h2>
+              </div>
+          </div>
+          <div class="row ftco-animate">
+            <!-- Point 1 -->
+            <div class="col-md-4 mb-4 mb-md-0">
+              <div class="card text-dark text-center">
+                <div class="card-body">
+                  <i class="fas fa-bullhorn fa-3x mb-3" style="color: #01D28E;"></i>
+                  <h4 class="card-title" style="font-weight: 600;">Increased Exposure</h4>
+                  <p class="card-text mb-4">Listing your cars on our platform will provide you with increased exposure and visibility to 
+                    potential renters, expanding your customer base.</p>
+                </div>
+              </div>
+            </div>
+            <!-- Point 2 -->
+            <div class="col-md-4 mb-4 mb-md-0">
+              <div class="card text-dark text-center">
+                <div class="card-body">
+                  <i class="fas fa-money-bill-wave fa-3x mb-3" style="color: #01D28E;"></i>
+                  <h4 class="card-title" style="font-weight: 600;">Zero Commission</h4>
+                  <p class="card-text">You keep all of the profits from your rentals. There are no hidden fees or charges apart from the 
+                    monthly subscription fee, making it a transparent and cost-effective option.</p>
+                </div>
+              </div>
+            </div>
+            <!-- Point 3 -->
+            <div class="col-md-4 mb-4 mb-md-0">
+              <div class="card text-dark text-center">
+                <div class="card-body">
+                  <i class="fas fa-handshake fa-3x mb-3" style="color: #01D28E;"></i>
+                  <h4 class="card-title" style="font-weight: 600;">Marketing Support</h4>
+                  <p class="card-text mb-4">Our marketing team works hard to promote the platform and bring in more renters, 
+                    which ultimately benefits your car rental business.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4 ftco-animate">
+            <!-- Point 4 -->
+            <div class="col-md-4 mb-4 mb-md-0">
+              <div class="card text-dark text-center">
+                <div class="card-body">
+                  <i class="fas fa-chart-line fa-3x mb-3" style="color: #01D28E;"></i>
+                  <h4 class="card-title" style="font-weight: 600;">Growth Potential</h4>
+                  <p class="card-text">As our platform grows and becomes more popular, you have the potential to grow 
+                    your business along with it, making it a valuable long-term partnership.</p>
+                </div>
+              </div>
+            </div>
+            <!-- Point 5 -->
+            <div class="col-md-4 mb-4 mb-md-0">
+              <div class="card text-dark text-center">
+                <div class="card-body">
+                  <i class="fas fa-calendar-check fa-3x mb-3" style="color: #01D28E;"></i>
+                  <h4 class="card-title" style="font-weight: 600;">Get bookings</h4>
+                  <p class="card-text mb-4">Receive inquiries for car rentals directly from customers via phone, 
+                    WhatsApp, SMS, and email without commission..</p>
+                </div>
+              </div>
+            </div>
+            <!-- Point 3 -->
+            <div class="col-md-4 mb-4 mb-md-0">
+              <div class="card text-dark text-center">
+                <div class="card-body">
+                  <i class="fas fa-user-check fa-3x mb-3" style="color: #01D28E;"></i>
+                  <h4 class="card-title" style="font-weight: 600;">High-quality Leads</h4>
+                  <p class="card-text mb-4">Listing your cars on our platform will provide you with increased exposure and visibility to potential renters, expanding your customer base.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <section class="ftco-section ftco-no-pt bg-dark">
+      <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+              <h3 class="mt-5 text-white" style="font-weight: 600;">Let us drive your business to new heights!</h3>
+            </div>
+          </div>
+          <div class="row ftco-animate">
+            <div class="col-md-4 text-center text-white">
+              <i class="fas fa-hand-holding-usd fa-3x mb-3"></i>
+              <h4 class="text-white" style="font-weight: 600;">Maximize your earning potential</h4>
+              <p>List your cars with us and tap into a wider pool of renters, increasing your bookings and revenue.</p>
+            </div>
+            <div class="col-md-4 text-center text-white">
+              <i class="fas fa-car fa-3x mb-3"></i>
+              <h4 class="text-white" style="font-weight: 600;">Streamlined booking process</h4>
+              <p>Our easy-to-use platform and quick booking system ensures a seamless rental experience for both you and your renters.</p>
+            </div>
+            <div class="col-md-4 text-center text-white">
+              <i class="fas fa-flag fa-3x mb-3"></i>
+              <h4 class="text-white" style="font-weight: 600;">Stand out from the competition</h4>
+              <p>Our platform offers a unique opportunity to showcase your cars to a wider audience, giving you a competitive edge in the car rental industry.</p>
+            </div>
+          </div>
+          <div class="row mt-4 ftco-animate">
+            <div class="text-center">
+              <button class="btn btn-outline-success rounded-pill btn-lg" style="font-weight: bold;">Grow Your Business with Us</button>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <section class="ftco-section bg-light">
+      <div class="container">
+          <div class="row justify-content-center mb-5">
+              <div class="col-md-7 text-center heading-section ftco-animate">
+                  <h2 class="mb-3">Frequently Asked Questions</h2>
+              </div>
+          </div>
+          <div class="row ftco-animate">
+              <div class="col-md-12">
+                  <div class="accordion" id="accordionExample">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            How do I join CarLnk
+                          </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            To become a member of the CarLnk car rental marketplace, simply complete the form on the webpage. Once you have submitted the form, a team member will be designated to assist you in getting your business established on CarLnk.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            How does it work?
+                          </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            Your car rental company can put its cars on CarLnk. People who want to rent a car browse through the website or app and get in touch with your company directly to ask questions or book a car. This is how CarLnk helps your company find potential customers.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Does CarLnk require payment for membership?
+                          </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            Yes, to successfully join CarLnk, you'll have to pay a monthly fee. All income via our platform is completely yours.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+          </div>
+      </div>
+    </section>
+
+{% endblock content %}

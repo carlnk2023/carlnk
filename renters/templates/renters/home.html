@@ -1,0 +1,276 @@
+{% extends 'renters/base.html' %}
+{% block meta %}
+    <title>Get the Best Car Rental Deals in Zimbabwe | CarLnk</title>
+    <meta name="description" content="Discover the best car rental deals in Zimbabwe with CarLnk. Our platform connects you to a wide selection of affordable and reliable rental cars. Whether you're a business traveler or a tourist, find the perfect vehicle to suit your needs and budget.  Our easy-to-use platform allows you to quickly search and compare rental options, with flexible pick-up and drop-off locations. Start your journey with CarLnk today.">
+    <meta name="keywords" content="car rental, Zimbabwe, affordable car rentals, car rental deals, online car rental marketplace, CarLnk"> 
+{% endblock meta %}
+{% load static %}
+
+{% block content %}
+<style>
+    .ftco-degree-bg {
+    position: relative; }
+    .ftco-degree-bg:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -50px;
+        overflow: visible;
+        width: 100%;
+        height: 0;
+        z-index: 0;
+        -webkit-transform: skewY(-4deg);
+        -moz-transform: skewY(-4deg);
+        -ms-transform: skewY(-4deg);
+        -o-transform: skewY(-4deg);
+        transform: skewY(-4deg);
+        background-color: #f8f9fa;
+        }
+</style>
+
+    <div class="hero-wrap ftco-degree-bg" style="background-image: url({% static 'images/renters_background_2.jpg' %});" data-stellar-background-ratio="0.5">
+        <div class="overlay" style="opacity: 0.4;"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center" style="height: 700px;">
+                <div class="col-md-8 align-items-center">
+                    <h2 class="ftco-animate text-center text-white" style="font-weight: 900;">RENT A CAR IN ZIMBABWE</h2>
+                    <h5 class="ftco-animate text-center text-white" style="font-weight: 300;">Book directly from local suppliers. No commission, no mark-ups.</h5>
+                    <form action="{% url 'search' %}" class="ftco-animate">
+                        <div class="mt-5 card" style="background-color: rgba(0, 0, 0, 0.712);">
+                            <div class="card-body">
+                                <div id="autocomplete" class="row autocomplete">
+                                    <div class="input-group">
+                                        <input class="autocomplete-input" name="q"  placeholder="City, Airport, Location" aria-describedby="button-addon"/>
+                                        <button class="btn btn-primary" type="submit" id="button-addon">Search</button>
+                                        <ul class="autocomplete-result-list"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div> 
+
+    <section class="ftco-section ftco-no-pt bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+                    <h3 class="mt-5" style="font-weight: 500;">We link you with the best car rental brands in Zimbabwe</h3>
+                </div>
+            </div>
+            <div class="row">
+                {% for owner in owners %}
+                    <div class="col-md-2 mb-4">
+                        <div class="card bg-transparent" style="width:70%;">
+                            <img src="{{ owner.logo.url }}" class="card-img-top" alt="logo">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-7 text-center heading-section ftco-animate">
+                    <span class="subheading">Simple - Cheap - Efficicent</span>
+                    <h2 class="mb-3">Why choose us?</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="services services-2 w-100 text-center">
+                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
+                        <div class="text w-100">
+                            <h3 class="heading mb-2" style="font-weight: bold; font-size: x-large;">No hidden fees</h3>
+                            <h5 style="font-size: large;">No commissions, mark-ups, or booking fees to pay</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="services services-2 w-100 text-center">
+                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-handshake"></span></div>
+                        <div class="text w-100">
+                            <h3 class="heading mb-2" style="font-weight: bold; font-size: x-large;">Exclusive Cars</h3>
+                            <h5 style="font-size: large;">We will meet your needs, whether you're seeking economical vehicles or high-end luxury cars.</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="services services-2 w-100 text-center">
+                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-rent"></span></div>
+                        <div class="text w-100">
+                            <h3 class="heading mb-2" style="font-weight: bold; font-size: x-large;">Book Directly</h3>
+                            <h5 style="font-size: large;">Secure a reservation with our partners directly, and receive the best rates available.</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section testimony-section bg-light">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-7 text-center heading-section ftco-animate">
+                    <span class="subheading">Testimonials</span>
+                    <h2 class="mb-3">Happy Clients</h2>
+                </div>
+            </div>
+            <div class="row ftco-animate">
+                <div class="col-md-12">
+                    <div class="carousel-testimony owl-carousel ftco-owl">
+                    <!-- 2nd -->
+                    <div class="item">
+                        <div class="testimony-wrap rounded text-center py-4 pb-5">
+                            <div class="text pt-4">
+                                <p class="mb-4">I was a bit nervous about renting a car in Zimbabwe, but the process was so easy 
+                                    and convenient thanks to this marketplace. The car was in great condition and the rental 
+                                    company was reliable and efficient. Highly recommend!
+                                </p>
+                                <p class="name">Karina Foster</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3rd -->
+                    <div class="item">
+                        <div class="testimony-wrap rounded text-center py-4 pb-5">
+                            <div class="text pt-4">
+                                <p class="mb-4">I had a fantastic experience renting a car through this marketplace. 
+                                    The customer service was excellent and the rental company was very professional. 
+                                    I felt safe and secure on the road in Zimbabwe thanks to them.
+                                </p>
+                                <p class="name">John Boyer</p>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <!-- 4th -->
+                    <div class="item">
+                        <div class="testimony-wrap rounded text-center py-4 pb-5">
+                            <div class="text pt-4">
+                                <p class="mb-4">I've been recommending this marketplace to all my friends and family. The car rental process 
+                                    is so convenient and the companies on the platform are reliable and efficient. 
+                                    I always feel confident when I rent a car through them.
+                                </p>
+                                <p class="name">Mcklin Zirongodza</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5th -->
+                    <div class="item">
+                        <div class="testimony-wrap rounded text-center py-4 pb-5">
+                            <div class="text pt-4">
+                                <p class="mb-4">
+                                    I have rented cars through this marketplace 
+                                    multiple times and have always been happy with the service. 
+                                    The companies are trustworthy and the booking process is easy and convenient.
+                                </p>
+                                <p class="name">Jane Chito</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 1st -->
+                    <div class="item">
+                        <div class="testimony-wrap rounded text-center py-4 pb-5">
+                            <div class="text pt-4">
+                                <p class="mb-4">I have been a regular customer of this marketplace for car rentals and have always been 
+                                    impressed with the variety of options and competitive pricing. 
+                                    The companies on the platform are trustworthy and make the process a breeze.
+                                </p>
+                                <p class="name">Takunda Chiripanyanga</p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section bg-light">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-7 text-center heading-section ftco-animate">
+                    <h2 class="mb-3">Frequently Asked Questions</h2>
+                </div>
+            </div>
+            <div class="row ftco-animate">
+                <div class="col-md-12">
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                How do I book a car?
+                            </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Booking a car on our platform is simple and easy! Just search for a pick-up location, select the car you want, and contant the supplier directly through call or WhatsApp. You'll be on your way in no time!
+                            </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                What are the requirements for renting a car?
+                            </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                To rent a car through our platform, you'll typically need a valid driver's license. Some rental companies may have additional requirements, but we'll provide you with all the details you need when you make your reservation.
+                            </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                How much does it cost to rent a car through your platform?
+                            </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                We offer competitive prices on car rentals from a variety of trusted rental companies. The renting cost can vary depending on the supplier. But rentals usually start as low as $40 per day
+                            </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    How much does it cost to rent a car through your platform?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    We offer competitive prices on car rentals from a variety of trusted rental companies. The renting cost can vary depending on the supplier. But rentals usually start as low as $40 per day
+                                </div>
+                            </div>
+                            </div>
+                            <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Do you charge a booking fee or commission to rent a car?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                CarLnk is distinct from other websites or applications in that it is offered without charge. You won't be charged a commission, booking fee, or any extra fees. Instead, you can contact, reserve, and pay the car rental provider directly.
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

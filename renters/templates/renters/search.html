@@ -1,0 +1,850 @@
+{% extends 'renters/base.html' %}
+{% block meta %}
+    <title>Search Results | CarLnk</title>
+    <meta name="description" content="Find the best car rental deals in Zimbabwe with CarLnk. Our affordable prices, well-maintained vehicles, and exceptional customer service make us the top choice for car rentals in Zimbabwe. Book now and experience hassle-free car rental services."> 
+    <meta name="keywords" content="car rentals, Zimbabwe, affordable, deals, vehicles, travel, transportation, booking, online, rentals"> 
+{% endblock meta %}
+{% load static %}
+
+{% block content %}
+<style>
+  .ftco-navbar-light {
+      background: #000 !important;
+      position: absolute;
+      top: 0px;
+      left: 0;
+      right: 0;
+      z-index: 3;
+  }
+
+  .card .btn {
+    width: calc(100% / 3);
+  }
+  .result:hover {
+    border-color: green;
+    transition: all 0.2s ease-in-out;
+  }
+  #rounded-start {
+    border-top-right-radius: 20px;
+  }
+
+  #rounded-end {
+    border-top-left-radius: 20px;
+  }
+
+  #rounded-mid {
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+  }
+
+</style>
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row mt-5">
+      
+      <div class="col-md-4">
+        <div class="card d-block d-lg-none mb-3">
+          <div class="card-header" id="filterDropdown">
+            <div class="row">
+              <div class="col">
+                <h4 class="text-dark" style="font-weight: bold;">Filters</h4>
+              </div>
+              <div class="col">
+                <button class="btn btn-outline-transparent float-right" type="button" data-toggle="collapse" data-target="#filterContent" aria-expanded="true" aria-controls="filterContent">
+                  <i class="fas fa-chevron-down fa-lg"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div id="filterContent" class="collapse" aria-labelledby="filterDropdown">
+            <div class="card-body">
+              <form id="filters-form-small" method="get">
+                {% csrf_token %}
+                <div class="form-group mt-3">
+                  <h4 class="text-dark" style="font-weight: bold;">Filters</h4>
+                  <a href="{% url 'home' %}" class="btn btn-outline-success"> Change</a>
+                  <hr style="background-color: black;">
+                </div>
+                <div class="form-group mt-3">
+                  <h6 class="text-dark mb-3" style="font-weight: bold;">Pick-up location</h6>
+                  <a href="{% url 'home' %}" class="btn btn-success btn-block"> Change location</a>
+                  <hr style="background-color: rgba(0, 0, 0, 0.329);">
+                </div>
+                <div class="form-group mt-4">
+                  <h6 class="text-dark mb-3" style="font-weight: bold;">Vehicle Type</h6>
+                  <select name="vehicle_type"  class="form-select form-select-md">
+                    <option value="" selected>---</option>
+                    <option class="text-dark" value="Small">Small</option>
+                    <option class="text-dark" value="Medium">Medium</option>
+                    <option class="text-dark" value="Truck">Truck</option>
+                    <option class="text-dark" value="SUV">SUV</option>
+                    <option class="text-dark" value="SUV">Van</option>
+                  </select>
+                  <hr style="background-color: rgba(0, 0, 0, 0.329);">
+                </div>
+                <div class="form-group mt-4">
+                  <h6 class="text-dark mb-3" style="font-weight: bold;">Price range</h6>
+                  <div class="row">
+                    <div class="row">
+                      <div class="col">
+                        <input type="number" class="form-control" name="min_price" min="0" placeholder="Min">
+                      </div>
+                      <div class="col">
+                        <input type="number" class="form-control" name="max_price" min="0" placeholder="Max">
+                      </div>
+                    </div>
+                  </div>
+                  <hr style="background-color: rgba(0, 0, 0, 0.329);">
+                </div>
+                <div class="form-group mt-4">
+                  <h6 class="text-dark mb-3" style="font-weight: bold;">No. of Seats</h6>
+                  <select name="no_of_seats" class="form-select form-select-md">
+                    <option value="" selected>---</option>
+                    <option class="text-dark" value="2">2</option>
+                  </select>
+                  <hr style="background-color: rgba(0, 0, 0, 0.329);">
+                </div>
+                <div class="form-group mt-4">
+                  <h6 class="text-dark mb-3" style="font-weight: bold;">Mileage/Kilometres</h6>
+                  <div class="form-check">
+                    <input name="mileage"  class="form-check-input custom-checkbox-lg" type="checkbox" id="flexCheckDefault" style="transform: scale(1.3);">
+                    <label class="form-check-label text-dark" for="flexCheckDefault">
+                      Unlimited
+                    </label>
+                  </div>
+                  <hr style="background-color: rgba(0, 0, 0, 0.329);">
+                </div>
+                <div class="form-group mt-4">
+                  <h6 class="text-dark mb-3" style="font-weight: bold;">Transmission</h6>
+                  <div class="form-check">
+                    <input class="form-check-input custom-checkbox-lg" type="checkbox" name="transmission_manual" id="flexCheckDefault" style="transform: scale(1.3);">
+                    <label class="form-check-label text-dark" for="flexCheckDefault">
+                      Manual
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input custom-checkbox-lg" type="checkbox" name="transmission_automatic" id="flexCheckDefault" style="transform: scale(1.3);">
+                    <label class="form-check-label text-dark" for="flexCheckDefault">
+                      Automatic
+                    </label>
+                  </div>
+                  <hr style="background-color: rgba(0, 0, 0, 0.329);">
+                </div>
+                <div class="form-group mt-4">
+                  <h6 class="text-dark mb-3" style="font-weight: bold;">Minimum rental period</h6>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="option1" name="rental_min_1" style="transform: scale(1.3);">
+                    <label class="form-check-label text-dark" for="option1">1 day</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="option2" name="rental_min_2" style="transform: scale(1.3);">
+                    <label class="form-check-label text-dark" for="option2">2 days</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="option3" name="rental_min_7" style="transform: scale(1.3);">
+                    <label class="form-check-label text-dark" for="option3">7 days</label>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card d-none d-lg-block">
+          <div class="card-body">
+            <form id="filters-form" method="get">
+              {% csrf_token %}
+              <div class="form-group mt-3">
+                <h4 class="text-dark" style="font-weight: bold;">Filters</h4>
+                <hr style="background-color: black;">
+              </div>
+              <div class="form-group mt-3">
+                <h6 class="text-dark mb-3" style="font-weight: bold;">Pick-up location</h6>
+                <a href="{% url 'home' %}" class="btn btn-outline-success"> Change</a>
+                <hr style="background-color: rgba(0, 0, 0, 0.329);">
+              </div>
+              <div class="form-group mt-4">
+                <h6 class="text-dark mb-3" style="font-weight: bold;">Vehicle Type</h6>
+                <select name="vehicle_type"  class="form-select form-select-md">
+                    <option value="" selected>---</option>
+                    <option class="text-dark" value="Small">Small</option>
+                    <option class="text-dark" value="Medium">Medium</option>
+                    <option class="text-dark" value="Truck">Truck</option>
+                    <option class="text-dark" value="SUV">SUV</option>
+                    <option class="text-dark" value="SUV">Van</option>
+                </select>
+                <hr style="background-color: rgba(0, 0, 0, 0.329);">
+              </div>
+              <div class="form-group mt-4">
+                <h6 class="text-dark mb-3" style="font-weight: bold;">Price range</h6>
+                <div class="row">
+                  <div class="row">
+                    <div class="col">
+                      <input type="number" class="form-control" name="min_price" min="0" placeholder="Min">
+                    </div>
+                    <div class="col">
+                      <input type="number" class="form-control" name="max_price" min="0" placeholder="Max">
+                    </div>
+                  </div>
+                </div>
+                <hr style="background-color: rgba(0, 0, 0, 0.329);">
+              </div>
+              <div class="form-group mt-4">
+                <h6 class="text-dark mb-3" style="font-weight: bold;">No. of Seats</h6>
+                <select name="no_of_seats" class="form-select form-select-md">
+                  <option value="" selected>---</option>
+                  <option class="text-dark" value="2">2</option>
+                </select>
+                <hr style="background-color: rgba(0, 0, 0, 0.329);">
+              </div>
+              <div class="form-group mt-4">
+                <h6 class="text-dark mb-3" style="font-weight: bold;">Mileage/Kilometres</h6>
+                <div class="form-check">
+                  <input name="mileage"  class="form-check-input custom-checkbox-lg" type="checkbox" id="flexCheckDefault" style="transform: scale(1.3);">
+                  <label class="form-check-label text-dark" for="flexCheckDefault">
+                    Unlimited
+                  </label>
+                </div>
+                <hr style="background-color: rgba(0, 0, 0, 0.329);">
+              </div>
+              <div class="form-group mt-4">
+                <h6 class="text-dark mb-3" style="font-weight: bold;">Transmission</h6>
+                <div class="form-check">
+                  <input class="form-check-input custom-checkbox-lg" type="checkbox" name="transmission_manual" id="flexCheckDefault" style="transform: scale(1.3);">
+                  <label class="form-check-label text-dark" for="flexCheckDefault">
+                    Manual
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input custom-checkbox-lg" type="checkbox" name="transmission_automatic" id="flexCheckDefault" style="transform: scale(1.3);">
+                  <label class="form-check-label text-dark" for="flexCheckDefault">
+                    Automatic
+                  </label>
+                </div>
+                <hr style="background-color: rgba(0, 0, 0, 0.329);">
+              </div>
+              <div class="form-group mt-4">
+                <h6 class="text-dark mb-3" style="font-weight: bold;">Minimum rental period</h6>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="option1" name="rental_min_1" style="transform: scale(1.3);">
+                  <label class="form-check-label text-dark" for="option1">1 day</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="option2" name="rental_min_2" style="transform: scale(1.3);">
+                  <label class="form-check-label text-dark" for="option2">2 days</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="option3" name="rental_min_7" style="transform: scale(1.3);">
+                  <label class="form-check-label text-dark" for="option3">7 days</label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="row mb-3">
+          <div class="col-sm-12 col-md-6 mr-auto">
+            <select class="form-select float-right" aria-label="Default select example">
+              <option value="">Sort by: Latest</option>
+              <option value="Price Low to High">Price Low to High</option>
+            </select>
+          </div>
+        </div>
+        <div class="row card-container">
+          {% for car in cars %}
+          <div class="col-sm-6">
+            <a href="{% url 'single_car' car.owner.business_name_slug car.model_name_slug car.pk %}">
+              <div class="card result shadow mb-5 bg-white rounded"> 
+                  <img src="{{ car.model_image.url }}" class="img-fluid rounded-start">
+                  <div class="card-body">
+                    <div class="row card-title">
+                      <div class="col-8">
+                        <h4 class="mt-3" style="font-weight: bold; line-height: 0;">{{ car.model_name }}</h4>
+                        <small style="font-size: medium;">or similar car</small>
+                      </div>
+                      <div class="col-4">
+                        <div>
+                          <img src="{{ car.owner.logo.url }}" alt="image" width="100%">
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <h5 class="text-primary car-price" style="font-weight: bold;">USD {{ car.price_per_day }}<span class="text-muted" style="font-weight: normal;"> / day</span></h5>
+                    <div class="d-flex">
+                        <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">{{ car.transmission }}</h5>
+                        <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">{{ car.doors }} <img alt="door" src="{% static 'images/door.png' %}" width="50%"></span></h5>
+                        <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">{{ car.number_of_seats }} <img alt="seat" src="{% static 'images/seat.png' %}" width="50%"></span></h5>
+                        <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">{{ car.bags }} <img alt="suitcase" src="{% static 'images/suitcase.png' %}" width="50%"></i></span></h5>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col-3">
+                        <h4 class="text-center mb-0"><span class="badge bg-primary"><i class="fa-solid fa-star"></i> {{ car.ratings }}</span></h4>
+                      </div>
+                      <div class="col-9">
+                        <ul class="list-unstyled">
+                          <li class="text-dark"><i class="fas fa-circle-exclamation text-danger"></i> USD {{ car.security_deposit }} deposit</li>
+                          <li class="text-dark"><i class="fas fa-circle-check text-success "></i> Minimum {{ car.min_days }} day(s) rental</li>
+                          <li class="text-dark"><i class="fas fa-circle-check text-success"></i> Fuel options</li>
+                        </ul>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="btn-group d-flex justify-content-between align-items-center w-100">
+                    <a href="tel:{{ car.owner.phone_number }}" class="btn btn-lg btn-info mr-1" id="rounded-start"><i class="fas fa-phone fa-xl"></i></a>
+                    <a href="https://wa.me/{{ car.owner.whatsapp_number }}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.co%3Cbr%3EI%20am%20interested%20in%20the%20listed%20{{ car.model_name }}%20going%20for%20USD%20{{ car.price_per_day }}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i></a>
+                    <button class="btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#carModal{{ car.pk }}" id="rounded-end"><i class="fas fa-envelope fa-xl"></i></button>
+                  </div>
+              </div>
+
+              <!-- Email Modal -->
+              <div class="modal fade" id="carModal{{ car.pk }}" tabindex="-1" aria-labelledby="carModal{{ car.pk }}Label" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="carModal{{ car.pk }}Label">Send Enquiry</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="card mb-3 p-2">
+                        <div class="row g-0"> 
+                          <div class="card-body">
+                            <div class="row card-title">
+                              <div class="col-8">
+                                <h4 class="mt-3" style="font-weight: bold; line-height: 0;">{{ car.model_name }}</h4>
+                                <small style="font-size: medium;">or similar car</small>
+                              </div>
+                              <div class="col-4">
+                                <div>
+                                  <img src="{{ car.owner.logo.url }}" alt="logo" width="100%">
+                                </div>
+                              </div>
+                              
+                            </div>
+                            <h5 class="text-primary" style="font-weight: bold;">USD {{ car.price_per_day }}<span class="text-muted" style="font-weight: normal;"> / day</span></h5>
+                            <div class="d-flex">
+                              <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">{{ car.transmission }}</h5>
+                              <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">{{ car.doors }} <img alt="door" src="{% static 'images/door.png' %}" width="50%"></span></h5>
+                              <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">{{ car.number_of_seats }} <img alt="seat" src="{% static 'images/seat.png' %}" width="50%"></span></h5>
+                              <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">{{ car.bags }} <img alt="suitcase" src="{% static 'images/suitcase.png' %}" width="50%"></i></span></h5>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                      <form class="row g-3" id="emailEnquiry{{ car.pk }}">
+                        {% csrf_token %}
+                        <textarea name="message" style="display: none;">
+                          Hello, I'm contacting you through CarLnk <br> I am interested in the listed {{ car.model_name }} going for USD {{ car.price_per_day }}/day.
+                        </textarea>
+                        <input type="email" name="owner" value="{{ car.owner.user.email }}" style="display: none;">
+                        <div class="col-12">
+                          <label for="nameInput" class="form-label text-dark">Your Name</label>
+                          <input type="text" name="name" class="form-control" id="nameInput" required>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="contactNumberInput" class="form-label text-dark">Contant Number</label>
+                          <input type="text" name="phone" class="form-control" id="contactNumberInput" required>
+                          <div id="passwordHelpBlock" class="form-text">
+                            Include your country code
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="emailInput" class="form-label text-dark">Email</label>
+                          <input type="email" name="email" class="form-control" id="emailInput" required>
+                        </div>
+                        <div class="col-12">
+                          <button type="submit" class="btn btn-success btn-lg" id="submit_button{{ car.pk }}">Submit</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <script>
+              $("#emailEnquiry{{ car.pk }}").submit(function (e) {
+                  // preventing from page reload and default actions
+                  e.preventDefault();
+                  // serialize the data for sending the form data.
+                  $form = $(this)
+                  var formData = new FormData(this);
+          
+                  // Button 
+                  document.getElementById("submit_button{{ car.pk }}").textContent  = 'Sending...';
+                  document.getElementById("submit_button{{ car.pk }}").disabled = true;
+          
+                  // make POST ajax call
+                  $.ajax({
+                      type: 'POST',
+                      url: "{% url 'send_email_enquiry' %}",
+                      data: formData,
+                      success: function (response) {
+                          // on successfull creating object
+                          // 1. clear the form.
+                          $("#emailEnquiry{{ car.pk }}").trigger('reset');
+
+                          // Button
+                          document.getElementById("submit_button{{ car.pk }}").textContent  = 'Submit';
+                          document.getElementById("submit_button{{ car.pk }}").disabled = false;
+                          
+                      },
+                      cache: false,
+                      contentType: false,
+                      processData: false,
+          
+                      error: function (response) {
+                        // Button
+                          document.getElementById("submit_button{{ car.pk }}").textContent  = 'Submit';
+                          document.getElementById("submit_button{{ car.pk }}").disabled = false;
+                          // alert the error if any error occured
+                          alert("Something wrong happened");
+                      }
+                  })
+              })
+          </script>
+          {% endfor %}
+        </div>
+      </div>
+  </div>
+</section>
+
+<script>
+  var checkboxes = document.querySelectorAll('input[name="rental_min_1"], input[name="rental_min_2"], input[name="rental_min_7"]');
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('click', function() {
+      if (this.checked) {
+        checkboxes.forEach(function(otherCheckbox) {
+          if (otherCheckbox !== checkbox) {
+            otherCheckbox.checked = false;
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<script>
+  var tran_checkboxes = document.querySelectorAll('input[name="transmission_manual"], input[name="transmission_automatic"]');
+  tran_checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('click', function() {
+      if (this.checked) {
+        tran_checkboxes.forEach(function(otherCheckbox) {
+          if (otherCheckbox !== checkbox) {
+            otherCheckbox.checked = false;
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<!-- <script>
+  // Assuming the card container has a class "card-container"
+  const cardContainer = $('.card-container');
+
+  // Attach an event listener to the select element
+  $('.form-select').on('change', function() {
+    const sortOption = $(this).val();
+    
+    if (sortOption === 'Price Low to High') {
+      // Sort the cards by price low to high and update the container
+      cardContainer.find('.card').sort(function(a, b) {
+        const priceA = parseFloat($(a).find('.car-price').text().substr(4));
+        const priceB = parseFloat($(b).find('.car-price').text().substr(4));
+        return priceA - priceB;
+      }).appendTo(cardContainer);
+    }
+  });
+
+</script> -->
+
+<script>
+
+</script>
+
+<script>
+  // create a script element
+  var script = document.createElement("script");
+
+  $(document).ready(function() {
+    $('#filters-form').on('change', function() {
+      var formData = $(this).serialize();
+      $.ajax({
+        type: 'GET',
+        url: '{% url "car_search_ajax" %}',
+        data: formData,
+        success: function(response) {
+          const cars = response.cars;
+          const cardContainer = $('.card-container');
+          cardContainer.empty();
+          if (cars.length > 0) {
+            cars.forEach(function(car) {
+              script.innerHTML = `
+              $("#emailEnquiry${car.car_pk}").submit(function (e) {
+                // preventing from page reload and default actions
+                e.preventDefault();
+                // serialize the data for sending the form data.
+                $form = $(this)
+                var formData = new FormData(this);
+
+                // Button 
+                document.getElementById("submit_button${car.car_pk}").textContent  = 'Sending...';
+                document.getElementById("submit_button${car.car_pk}").disabled = true;
+
+                // make POST ajax call
+                $.ajax({
+                  type: 'POST',
+                  url: "{% url 'send_email_enquiry' %}",
+                  data: formData,
+                  success: function (response) {
+                    // on successfull creating object
+                    // 1. clear the form.
+                    $("#emailEnquiry${car.car_pk}").trigger('reset');
+
+                    // Button
+                    document.getElementById("submit_button${car.car_pk}").textContent  = 'Submit';
+                    document.getElementById("submit_button${car.car_pk}").disabled = false;
+                  },
+                  cache: false,
+                  contentType: false,
+                  processData: false,
+
+                  error: function (response) {
+                    // Button
+                    document.getElementById("submit_button${car.car_pk}").textContent  = 'Submit';
+                    document.getElementById("submit_button${car.car_pk}").disabled = false;
+                    // alert the error if any error occured
+                    alert("Something wrong happened");
+                  }
+                })
+              })
+            `;
+            const card = `<div class="col-sm-6">
+            <a href="/single-car/${car.business_name_slug}/${car.model_name_slug}/${car.car_pk}/">
+              <div class="card result shadow mb-5 bg-white rounded"> 
+                <img src="${car.model_image}" class="img-fluid rounded-start">
+                <div class="card-body">
+                  <div class="row card-title">
+                    <div class="col-8">
+                      <h4 class="mt-3" style="font-weight: bold; line-height: 0;">${car.model_name}</h4>
+                      <small style="font-size: medium;">or similar car</small>
+                    </div>
+                    <div class="col-4">
+                      <div>
+                        <img src="${car.logo}" alt="image" width="100%">
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <h5 class="text-primary" style="font-weight: bold;">USD ${car.price_per_day}<span class="text-muted" style="font-weight: normal;"> / day</span></h5>
+                  <div class="d-flex">
+                      <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.transmission}</span></h5>
+                      <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.doors} <img alt="door" src="{% static 'images/door.png' %}" width="50%"></span></h5>
+                      <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.number_of_seats} <img alt="seat" src="{% static 'images/seat.png' %}" width="50%"></span></h5>
+                      <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.bags} <img alt="suitcase" src="{% static 'images/suitcase.png' %}" width="50%"></i></span></h5>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-3">
+                      <h4 class="text-center mb-0"><span class="badge bg-primary"><i class="fa-solid fa-star"></i> ${car.ratings}</span></h4>
+                    </div>
+                    <div class="col-9">
+                      <ul class="list-unstyled">
+                        <li class="text-dark"><i class="fas fa-circle-exclamation text-danger"></i> USD ${car.security_deposit} deposit</li>
+                        <li class="text-dark"><i class="fas fa-circle-check text-success "></i> Minimum ${car.min_days} day(s) rental</li>
+                        <li class="text-dark"><i class="fas fa-circle-check text-success"></i> Fuel options</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+              </div>
+              <div class="btn-group d-flex justify-content-between align-items-center w-100">
+                <a href="tel:${car.phone_number}" class="btn btn-lg btn-info mr-1" id="rounded-start"><i class="fas fa-phone fa-xl"></i></a>
+                <a href="https://wa.me/${car.whatsapp_number}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk%3Cbr%3EI%20am%20interested%20in%20the%20listed%20${car.model_name}%20going%20for%20USD%20${car.price_per_day}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i></a>
+                <button class="btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#carModal${car.car_pk}" id="rounded-end"><i class="fas fa-envelope fa-xl"></i></button>
+              </div>
+              </div>
+
+              <!-- Email Modal -->
+              <div class="modal fade" id="carModal${car.car_pk}" tabindex="-1" aria-labelledby="carModal${car.car_pk}Label" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="carModal${car.car_pk}Label">Send Enquiry</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="card mb-3 p-2">
+                        <div class="row g-0">
+                          <div class="card-body">
+                            <div class="row card-title">
+                              <div class="col-8">
+                                <h4 class="mt-3" style="font-weight: bold; line-height: 0;">${car.model_name}</h4>
+                                <small style="font-size: medium;">or similar car</small>
+                              </div>
+                              <div class="col-4">
+                                <div>
+                                  <img src="${car.logo}" alt="logo" width="100%">
+                                </div>
+                              </div>
+                              
+                            </div>
+                            <h5 class="text-primary" style="font-weight: bold;">USD ${car.price_per_day}<span class="text-muted" style="font-weight: normal;"> / day</span></h5>
+                            <div class="d-flex">
+                              <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.transmission}}</h5>
+                              <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.doors} <img alt="door" src="{% static 'images/door.png' %}" width="50%"></span></h5>
+                              <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.number_of_seats} <img alt="seat" src="{% static 'images/seat.png' %}" width="50%"></span></h5>
+                              <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.bags} <img alt="suitcase" src="{% static 'images/suitcase.png' %}" width="50%"></i></span></h5>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                      <form class="row g-3" id="emailEnquiry${car.car_pk}">
+                        {% csrf_token %}
+                        <textarea name="message" style="display: none;">
+                          Hello, I'm contacting you through CarLnk <br> I am interested in the listed ${car.model_name} going for USD ${car.price_per_day}/day.
+                        </textarea>
+                        <input type="email" name="owner" value="${car.business_email}" style="display: none;">
+                        <div class="col-12">
+                          <label for="nameInput" class="form-label text-dark">Your Name</label>
+                          <input type="text" name="name" class="form-control" id="nameInput" required>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="contactNumberInput" class="form-label text-dark">Contant Number</label>
+                          <input type="text" name="phone" class="form-control" id="contactNumberInput" required>
+                          <div id="passwordHelpBlock" class="form-text">
+                            Include your country code
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="emailInput" class="form-label text-dark">Email</label>
+                          <input type="email" name="email" class="form-control" id="emailInput" required>
+                        </div>
+                        <div class="col-12">
+                          <button type="submit" class="btn btn-success btn-lg" id="submit_button${car.car_pk}">Submit</button>
+                        </div>
+                      </form>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>`;
+                
+              // create a temporary element
+              var temp = document.createElement("div");
+              // insert the HTML containing the script into the temporary element
+              temp.insertAdjacentHTML("beforeend", script.outerHTML);
+              // append the temporary element to the card
+              // card.appendChild(temp.firstChild);
+
+              // append the card element to the cardContainer
+              cardContainer.append(card);
+              cardContainer.append(temp.firstChild);
+              });
+              }else {
+              cardContainer.append('<p>No results found.</p>');
+            }
+          },
+          error: function(xhr, status, error) {
+          }
+        });
+    });
+  });
+</script>
+
+<script>
+  // create a script element
+  var script_small = document.createElement("script");
+
+  $(document).ready(function() {
+    $('#filters-form-small').on('change', function() {
+      var formData = $(this).serialize();
+      $.ajax({
+        type: 'GET',
+        url: '{% url "car_search_ajax" %}',
+        data: formData,
+        success: function(response) {
+          const cars = response.cars;
+          const cardContainer = $('.card-container');
+          cardContainer.empty();
+          if (cars.length > 0) {
+            cars.forEach(function(car) {
+              script_small.innerHTML = `
+              $("#emailEnquiry${car.car_pk}").submit(function (e) {
+                // preventing from page reload and default actions
+                e.preventDefault();
+                // serialize the data for sending the form data.
+                $form = $(this)
+                var formData = new FormData(this);
+
+                // Button 
+                document.getElementById("submit_button${car.car_pk}").textContent  = 'Sending...';
+                document.getElementById("submit_button${car.car_pk}").disabled = true;
+
+                // make POST ajax call
+                $.ajax({
+                  type: 'POST',
+                  url: "{% url 'send_email_enquiry' %}",
+                  data: formData,
+                  success: function (response) {
+                    // on successfull creating object
+                    // 1. clear the form.
+                    $("#emailEnquiry${car.car_pk}").trigger('reset');
+
+                    // Button
+                    document.getElementById("submit_button${car.car_pk}").textContent  = 'Submit';
+                    document.getElementById("submit_button${car.car_pk}").disabled = false;
+                  },
+                  cache: false,
+                  contentType: false,
+                  processData: false,
+
+                  error: function (response) {
+                    // Button
+                    document.getElementById("submit_button${car.car_pk}").textContent  = 'Submit';
+                    document.getElementById("submit_button${car.car_pk}").disabled = false;
+                    // alert the error if any error occured
+                    alert("Something wrong happened");
+                  }
+                })
+              })
+            `;
+            const card = `<div class="col-sm-6">
+            <a href="/single-car/${car.business_name_slug}/${car.model_name_slug}/${car.car_pk}/">
+              <div class="card result shadow mb-5 bg-white rounded"> 
+                <img src="${car.model_image}" class="img-fluid rounded-start">
+                <div class="card-body">
+                  <div class="row card-title">
+                    <div class="col-8">
+                      <h4 class="mt-3" style="font-weight: bold; line-height: 0;">${car.model_name}</h4>
+                      <small style="font-size: medium;">or similar car</small>
+                    </div>
+                    <div class="col-4">
+                      <div>
+                        <img src="${car.logo}" alt="image" width="100%">
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <h5 class="text-primary" style="font-weight: bold;">USD ${car.price_per_day}<span class="text-muted" style="font-weight: normal;"> / day</span></h5>
+                  <div class="d-flex">
+                      <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.transmission}</span></h5>
+                      <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.doors} <img alt="door" src="{% static 'images/door.png' %}" width="50%"></span></h5>
+                      <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.number_of_seats} <img alt="seat" src="{% static 'images/seat.png' %}" width="50%"></span></h5>
+                      <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.bags} <img alt="suitcase" src="{% static 'images/suitcase.png' %}" width="50%"></i></span></h5>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-3">
+                      <h4 class="text-center mb-0"><span class="badge bg-primary"><i class="fa-solid fa-star"></i> ${car.ratings}</span></h4>
+                    </div>
+                    <div class="col-9">
+                      <ul class="list-unstyled">
+                        <li class="text-dark"><i class="fas fa-circle-exclamation text-danger"></i> USD ${car.security_deposit} deposit</li>
+                        <li class="text-dark"><i class="fas fa-circle-check text-success "></i> Minimum ${car.min_days} day(s) rental</li>
+                        <li class="text-dark"><i class="fas fa-circle-check text-success"></i> Fuel options</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+              </div>
+              <div class="btn-group d-flex justify-content-between align-items-center w-100">
+                <a href="tel:${car.phone_number}" class="btn btn-lg btn-info mr-1" id="rounded-start"><i class="fas fa-phone fa-xl"></i></a>
+                <a href="https://wa.me/${car.whatsapp_number}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk%3Cbr%3EI%20am%20interested%20in%20the%20listed%20${car.model_name}%20going%20for%20USD%20${car.price_per_day}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i></a>
+                <button class="btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#carModal${car.car_pk}" id="rounded-end"><i class="fas fa-envelope fa-xl"></i></button>
+              </div>
+              </div>
+
+              <!-- Email Modal -->
+              <div class="modal fade" id="carModal${car.car_pk}" tabindex="-1" aria-labelledby="carModal${car.car_pk}Label" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="carModal${car.car_pk}Label">Send Enquiry</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="card mb-3 p-2">
+                        <div class="row g-0">
+                          <div class="card-body">
+                            <div class="row card-title">
+                              <div class="col-8">
+                                <h4 class="mt-3" style="font-weight: bold; line-height: 0;">${car.model_name}</h4>
+                                <small style="font-size: medium;">or similar car</small>
+                              </div>
+                              <div class="col-4">
+                                <div>
+                                  <img src="${car.logo}" alt="logo" width="100%">
+                                </div>
+                              </div>
+                              
+                            </div>
+                            <h5 class="text-primary" style="font-weight: bold;">USD ${car.price_per_day}<span class="text-muted" style="font-weight: normal;"> / day</span></h5>
+                            <div class="d-flex">
+                              <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.transmission}}</h5>
+                              <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.doors} <img alt="door" src="{% static 'images/door.png' %}" width="50%"></span></h5>
+                              <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.number_of_seats} <img alt="seat" src="{% static 'images/seat.png' %}" width="50%"></span></h5>
+                              <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">${car.bags} <img alt="suitcase" src="{% static 'images/suitcase.png' %}" width="50%"></i></span></h5>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                      <form class="row g-3" id="emailEnquiry${car.car_pk}">
+                        {% csrf_token %}
+                        <textarea name="message" style="display: none;">
+                          Hello, I'm contacting you through CarLnk <br> I am interested in the listed ${car.model_name} going for USD ${car.price_per_day}/day.
+                        </textarea>
+                        <input type="email" name="owner" value="${car.business_email}" style="display: none;">
+                        <div class="col-12">
+                          <label for="nameInput" class="form-label text-dark">Your Name</label>
+                          <input type="text" name="name" class="form-control" id="nameInput" required>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="contactNumberInput" class="form-label text-dark">Contant Number</label>
+                          <input type="text" name="phone" class="form-control" id="contactNumberInput" required>
+                          <div id="passwordHelpBlock" class="form-text">
+                            Include your country code
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="emailInput" class="form-label text-dark">Email</label>
+                          <input type="email" name="email" class="form-control" id="emailInput" required>
+                        </div>
+                        <div class="col-12">
+                          <button type="submit" class="btn btn-success btn-lg" id="submit_button${car.car_pk}">Submit</button>
+                        </div>
+                      </form>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>`;
+                
+              // create a temporary element
+              var temp_small = document.createElement("div");
+              // insert the HTML containing the script into the temporary element
+              temp_small.insertAdjacentHTML("beforeend", script_small.outerHTML);
+              // append the temporary element to the card
+              // card.appendChild(temp.firstChild);
+
+              // append the card element to the cardContainer
+              cardContainer.append(card);
+              cardContainer.append(temp_small.firstChild);
+              });
+              }else {
+              cardContainer.append('<p>No results found.</p>');
+            }
+          },
+          error: function(xhr, status, error) {
+          }
+        });
+    });
+  });
+</script>
+{% endblock content %}
