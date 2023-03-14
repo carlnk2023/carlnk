@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['carlnk.co','www.carlnk.co', '64.226.67.100']
 
