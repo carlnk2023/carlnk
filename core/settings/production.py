@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['carlnk.co','www.carlnk.co', '64.227.115.182']
+ALLOWED_HOSTS = ['carlnk.co','www.carlnk.co', 'clownfish-app-k6gel.ondigitalocean.app']
 
 # DATABASE
 DATABASES = {
@@ -21,7 +21,7 @@ DATABASES = {
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_BROWSER_XSS_FILTER = True
-CSRF_TRUSTED_ORIGINS = ['https://carlnk.co']
+CSRF_TRUSTED_ORIGINS = ['https://carlnk.co', 'https://www.carlnk.co']
 
 
 # Media and Staticfiles
