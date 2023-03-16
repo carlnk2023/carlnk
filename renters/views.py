@@ -47,7 +47,7 @@ def car_search_ajax(request):
 		if mileage:
 			cars = cars.filter(mileage_limit='Unlimited') if mileage == 'unlimited' else cars.filter(mileage_limit='Limited')
 		if pickup_location:
-			cars = cars.filter(pickup_location__location__icontains=pickup_location)
+			cars = cars.filter(pickup_location__location__icontains=pickup_location).distinct()
 		if vehicle_type:
 			cars = cars.filter(class_name=vehicle_type)
 		if no_of_seats:
@@ -194,9 +194,8 @@ def search(request):
 	transparent_nav = False
 	location = request.GET.get('q')
 	 
-	cars = CarCategory.objects.filter(pickup_location__location__icontains=location).exclude(inventory_available=False)
+	cars = CarCategory.objects.filter(pickup_location__location__icontains=location).exclude(inventory_available=False).distinct()
 	cars = cars.order_by('price_per_day')
-
 	context = {
 		'cars': cars,
 		'transparent_nav':transparent_nav,

@@ -44,9 +44,18 @@
     <div class="row mt-5">
       <div class="col-md-8">
         <!-- IMAGE OF CAR -->
-        <div style="z-index: 3; align-self: flex-start; min-width: 0px; order: 1; min-height: 400px;height: max-content; flex-grow: 0; flex-shrink: 0; background-image: url({{ car.model_image.url }}); background-repeat: no-repeat; background-position: center center; background-size: cover; width: calc(100% - 0px); margin: 0px; overflow: visible; border-radius: 7px; background-color: rgba(255, 255, 255, 0);">
-          
+      <div class="d-block d-lg-none">
+        <div style="z-index: 3; align-self: flex-start; min-width: 0px; order: 1; min-height: 290px;height: max-content; flex-grow: 0; flex-shrink: 0; background-image: url({{ car.model_image.url }}); background-repeat: no-repeat; background-position: center center; background-size: cover; width: calc(100% - 0px); margin: 0px; overflow: visible; border-radius: 7px; background-color: rgba(255, 255, 255, 0);">
         </div>
+      </div>
+
+      <div class="d-none d-md-block">
+      <div style="z-index: 3; align-self: flex-start; min-width: 0px; order: 1; min-height: 400px;height: max-content; flex-grow: 0; flex-shrink: 0; background-image: url({{ car.model_image.url }}); background-repeat: no-repeat; background-position: center center; background-size: cover; width: calc(100% - 0px); margin: 0px; overflow: visible; border-radius: 7px; background-color: rgba(255, 255, 255, 0);">
+      </div>
+      </div>
+      
+      
+
 
         <!-- CAR SPECIFCATIONS -->
         <div class="row mt-4">
@@ -111,7 +120,7 @@
           </div>
           <div class="btn-group d-none d-md-flex justify-content-between align-items-center">
             <a href="tel:{{ car.owner.phone_number }}" class="btn btn-lg btn-info mr-1" id="rounded-start"><i class="fas fa-phone fa-xl"></i> Call</a>
-            <a href="https://wa.me/{{ car.owner.whatsapp_number }}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.co%3Cbr%3EI%20am%20interested%20in%20the%20listed%20{{ car.model_name }}%20going%20for%20USD%20{{ car.price_per_day }}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i> WhatsApp</a>
+            <a href="https://wa.me/{{ car.owner.whatsapp_number }}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.%20I%20am%20interested%20in%20the%20listed%20{{ car.model_name }}%20going%20for%20USD%20{{ car.price_per_day }}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i> WhatsApp</a>
             <button class="btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#carModal" id="rounded-end"><i class="fas fa-envelope fa-xl"></i> Email</button>
           </div>
         </div>
@@ -130,14 +139,14 @@
             </div>
             <div class="btn-group d-none d-md-flex justify-content-between align-items-center">
               <a href="tel:{{ car.owner.phone_number }}" class="btn btn-lg btn-info mr-1" id="rounded-start"><i class="fas fa-phone fa-xl"></i></a>
-              <a href="https://wa.me/{{ car.owner.whatsapp_number }}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.co%3Cbr%3EI%20am%20interested%20in%20the%20listed%20{{ car.model_name }}%20going%20for%20USD%20{{ car.price_per_day }}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i></a>
+              <a href="https://wa.me/{{ car.owner.whatsapp_number }}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.%20I%20am%20interested%20in%20the%20listed%20{{ car.model_name }}%20going%20for%20USD%20{{ car.price_per_day }}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i></a>
               <button class="btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#carModal" id="rounded-end"><i class="fas fa-envelope fa-xl"></i></button>
             </div>
             
             <div class="d-block d-sm-none position-fixed fixed-bottom">
               <div class="btn-group d-md-flex d-flex justify-content-between align-items-center w-100">
                 <a href="tel:{{ car.owner.phone_number }}" class="btn btn-lg btn-info mr-1" id="rounded-start"><i class="fas fa-phone fa-xl"></i></a>
-                <a href="https://wa.me/{{ car.owner.whatsapp_number }}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.co%3Cbr%3EI%20am%20interested%20in%20the%20listed%20{{ car.model_name }}%20going%20for%20USD%20{{ car.price_per_day }}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i></a>
+                <a href="https://wa.me/{{ car.owner.whatsapp_number }}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.%20I%20am%20interested%20in%20the%20listed%20{{ car.model_name }}%20going%20for%20USD%20{{ car.price_per_day }}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i></a>
                 <button class="btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#carModal" id="rounded-end"><i class="fas fa-envelope fa-xl"></i></button>
               </div>
             </div> 

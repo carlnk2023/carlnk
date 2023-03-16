@@ -35,7 +35,7 @@
         <div class="card p-3 bg-white rounded mr-4 text-dark" style="margin-top: 100px;">
           <div class="card-body">
               <h4 class="card-title mb-3" style="font-weight: bold;">Drive your business forward</h4>
-              <form class="row g-3">
+              <form class="row g-3" method="post">
                 {% csrf_token %}
                 <div class="col-md-12">
                   <label for="nameInput" class="form-label">Your Name</label>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="col-md-12">
                   <label for="emailInput" class="form-label">Email</label>
-                  <input type="email" name="email" class="form-control" placeholder="john@example.com" id="emailInput" readonly>
+                  <input type="email" name="email" class="form-control" placeholder="john@example.com" id="emailInput" required>
                 </div>
                 <div class="col-12">
                   <button type="submit" class="btn btn-outline-success btn-block">Submit</button>

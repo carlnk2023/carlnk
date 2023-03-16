@@ -38,7 +38,7 @@
   }
 
 </style>
-
+ 
 <section class="ftco-section">
   <div class="container">
     <div class="row mt-5">
@@ -62,13 +62,8 @@
               <form id="filters-form-small" method="get">
                 {% csrf_token %}
                 <div class="form-group mt-3">
-                  <h4 class="text-dark" style="font-weight: bold;">Filters</h4>
-                  <a href="{% url 'home' %}" class="btn btn-outline-success"> Change</a>
-                  <hr style="background-color: black;">
-                </div>
-                <div class="form-group mt-3">
                   <h6 class="text-dark mb-3" style="font-weight: bold;">Pick-up location</h6>
-                  <a href="{% url 'home' %}" class="btn btn-success btn-block"> Change location</a>
+                  <a href="{% url 'home' %}" class="btn btn-outline-success"> Change</a>
                   <hr style="background-color: rgba(0, 0, 0, 0.329);">
                 </div>
                 <div class="form-group mt-4">
@@ -102,6 +97,18 @@
                   <select name="no_of_seats" class="form-select form-select-md">
                     <option value="" selected>---</option>
                     <option class="text-dark" value="2">2</option>
+                    <option class="text-dark" value="3">3</option>
+                    <option class="text-dark" value="4">4</option>
+                    <option class="text-dark" value="5">5</option>
+                    <option class="text-dark" value="6">6</option>
+                    <option class="text-dark" value="7">7</option>
+                    <option class="text-dark" value="8">8</option>
+                    <option class="text-dark" value="9">9</option>
+                    <option class="text-dark" value="11">11</option>
+                    <option class="text-dark" value="12">12</option>
+                    <option class="text-dark" value="13">13</option>
+                    <option class="text-dark" value="14">14</option>
+                    <option class="text-dark" value="15">15</option>
                   </select>
                   <hr style="background-color: rgba(0, 0, 0, 0.329);">
                 </div>
@@ -195,6 +202,18 @@
                 <select name="no_of_seats" class="form-select form-select-md">
                   <option value="" selected>---</option>
                   <option class="text-dark" value="2">2</option>
+                  <option class="text-dark" value="3">3</option>
+                  <option class="text-dark" value="4">4</option>
+                  <option class="text-dark" value="5">5</option>
+                  <option class="text-dark" value="6">6</option>
+                  <option class="text-dark" value="7">7</option>
+                  <option class="text-dark" value="8">8</option>
+                  <option class="text-dark" value="9">9</option>
+                  <option class="text-dark" value="11">11</option>
+                  <option class="text-dark" value="12">12</option>
+                  <option class="text-dark" value="13">13</option>
+                  <option class="text-dark" value="14">14</option>
+                  <option class="text-dark" value="15">15</option>
                 </select>
                 <hr style="background-color: rgba(0, 0, 0, 0.329);">
               </div>
@@ -295,7 +314,7 @@
                   </div>
                   <div class="btn-group d-flex justify-content-between align-items-center w-100">
                     <a href="tel:{{ car.owner.phone_number }}" class="btn btn-lg btn-info mr-1" id="rounded-start"><i class="fas fa-phone fa-xl"></i></a>
-                    <a href="https://wa.me/{{ car.owner.whatsapp_number }}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.co%3Cbr%3EI%20am%20interested%20in%20the%20listed%20{{ car.model_name }}%20going%20for%20USD%20{{ car.price_per_day }}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i></a>
+                    <a href="https://wa.me/{{ car.owner.whatsapp_number }}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.%20I%20am%20interested%20in%20the%20listed%20{{ car.model_name }}%20going%20for%20USD%20{{ car.price_per_day }}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i></a>
                     <button class="btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#carModal{{ car.pk }}" id="rounded-end"><i class="fas fa-envelope fa-xl"></i></button>
                   </div>
               </div>
@@ -563,7 +582,7 @@
               </div>
               <div class="btn-group d-flex justify-content-between align-items-center w-100">
                 <a href="tel:${car.phone_number}" class="btn btn-lg btn-info mr-1" id="rounded-start"><i class="fas fa-phone fa-xl"></i></a>
-                <a href="https://wa.me/${car.whatsapp_number}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk%3Cbr%3EI%20am%20interested%20in%20the%20listed%20${car.model_name}%20going%20for%20USD%20${car.price_per_day}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i></a>
+                <a href="https://wa.me/${car.whatsapp_number}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.%20I%20am%20interested%20in%20the%20listed%20${car.model_name}%20going%20for%20USD%20${car.price_per_day}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i></a>
                 <button class="btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#carModal${car.car_pk}" id="rounded-end"><i class="fas fa-envelope fa-xl"></i></button>
               </div>
               </div>
@@ -754,7 +773,7 @@
               </div>
               <div class="btn-group d-flex justify-content-between align-items-center w-100">
                 <a href="tel:${car.phone_number}" class="btn btn-lg btn-info mr-1" id="rounded-start"><i class="fas fa-phone fa-xl"></i></a>
-                <a href="https://wa.me/${car.whatsapp_number}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk%3Cbr%3EI%20am%20interested%20in%20the%20listed%20${car.model_name}%20going%20for%20USD%20${car.price_per_day}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i></a>
+                <a href="https://wa.me/${car.whatsapp_number}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.%20I%20am%20interested%20in%20the%20listed%20${car.model_name}%20going%20for%20USD%20${car.price_per_day}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i></a>
                 <button class="btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#carModal${car.car_pk}" id="rounded-end"><i class="fas fa-envelope fa-xl"></i></button>
               </div>
               </div>

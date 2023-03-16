@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['carlnk.co','www.carlnk.co', 'clownfish-app-k6gel.ondigitalocean.app']
+ALLOWED_HOSTS = ['carlnk.co','www.carlnk.co']
 
 # DATABASE
 DATABASES = {
