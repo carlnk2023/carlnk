@@ -1,4 +1,7 @@
+import os
+from uuid import uuid4
 from django.db import models
+from datetime import datetime
 from owners.models import Owner
 from django.utils.text import slugify
 from owners.validators import validate_file_size
@@ -6,8 +9,12 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 def user_directory_path_cars(instance, filename):
-	# file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'user_{0}/cars/{1}'.format(instance.owner.user.id, filename)
+    extension = os.path.splitext(filename)[1]
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    unique_filename = f'{uuid4().hex}{timestamp}{extension}'
+    
+    # file will be uploaded to MEDIA_ROOT/user_<id>/cars/<unique_filename>
+    return f'user_{instance.owner.user.id}/cars/{unique_filename}'
 
     
 class Location(models.Model):

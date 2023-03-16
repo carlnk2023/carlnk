@@ -46,7 +46,7 @@
     <script src="https://cdn.websitepolicies.io/lib/cconsent/cconsent.min.js" defer></script><script>window.addEventListener("load",function(){window.wpcb.init({"border":"thin","corners":"small","colors":{"popup":{"background":"#e2f7d4","text":"#000000","border":"#7fc25e"},"button":{"background":"#7fc25e","text":"#ffffff"}},"position":"bottom-right","content":{"href":"carlnk.co/cookie-policy/"}})});</script>
   </head>
   <body>
-    
+
     <!-- Navbar -->
     {% if transparent_nav is True %}
       {% include 'renters/includes/navbar.html' %}
@@ -55,9 +55,12 @@
     {% endif %}
 
     <!-- END nav -->
-    
+
     {% block content %}
     {% endblock content %}
+   
+    
+    
 
 
     
@@ -101,7 +104,7 @@
       </div>
     </footer>
     
-    <style>
+    <!-- <style>
       .preloader {
         display: flex;
         justify-content: center;
@@ -115,14 +118,16 @@
         z-index: 9999;
       }
 
-    </style>
+    </style> -->
+     <!-- loader -->
+  
+    <!-- <div id="ftco-loader" class="show fullscreen">
+      <div class="preloader">
+          <img src="{% static 'images/logo.png' %}" alt="Your Logo">
+      </div>
+    </div> -->
 
-  <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen">
-    <div class="preloader">
-        <img src="{% static 'images/logo.png' %}" alt="Your Logo">
-    </div>
-  </div>
+ 
 
 <script>
   new Autocomplete('#autocomplete', {

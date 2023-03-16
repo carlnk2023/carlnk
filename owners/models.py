@@ -1,4 +1,7 @@
+import os
+from uuid import uuid4
 from django.db import models
+from datetime import datetime
 from django.utils.text import slugify
 from accounts.models import CustomUser
 from django.conf import settings
@@ -8,8 +11,13 @@ from .validators import validate_file_size
 # Create your models here.
  
 def user_directory_path(instance, filename):
-	# file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'user_{0}/{1}'.format(instance.user.id, filename)
+    # generate a unique filename using a UUID and timestamp
+    extension = os.path.splitext(filename)[1]
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    unique_filename = f'{uuid4().hex}{timestamp}{extension}'
+    
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<unique_filename>
+    return f'user_{instance.user.id}/{unique_filename}'
 
 
 class Owner(models.Model):

@@ -60,7 +60,7 @@
         <!-- CAR SPECIFCATIONS -->
         <div class="row mt-4">
           <div class="col-8 mt-3">
-            <h3 style="font-weight: bold; line-height: 0.5;">{{ car.model_name }}</h3>
+            <h3 style="font-weight: bold; line-height: 1;">{{ car.model_name }}</h3>
             <small style="font-size: medium;">or similar car</small>
           </div>
           <div class="col-4">
@@ -114,14 +114,16 @@
         </div>
 
         <div class="row mt-4">
-          <h4 style="font-weight: 500;">Contact Supplier</h4>
-          <div class="row pr-4 pl-4">
-            <hr style="background-color: black;">
-          </div>
-          <div class="btn-group d-none d-md-flex justify-content-between align-items-center">
-            <a href="tel:{{ car.owner.phone_number }}" class="btn btn-lg btn-info mr-1" id="rounded-start"><i class="fas fa-phone fa-xl"></i> Call</a>
-            <a href="https://wa.me/{{ car.owner.whatsapp_number }}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.%20I%20am%20interested%20in%20the%20listed%20{{ car.model_name }}%20going%20for%20USD%20{{ car.price_per_day }}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i> WhatsApp</a>
-            <button class="btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#carModal" id="rounded-end"><i class="fas fa-envelope fa-xl"></i> Email</button>
+          <div class="d-none d-md-flex">
+            <h4 style="font-weight: 500;">Contact Supplier</h4>
+            <div class="row pr-4 pl-4">
+              <hr style="background-color: black;">
+            </div>
+            <div class="btn-group  justify-content-between align-items-center">
+              <a href="tel:{{ car.owner.phone_number }}" class="btn btn-lg btn-info mr-1" id="rounded-start"><i class="fas fa-phone fa-xl"></i> Call</a>
+              <a href="https://wa.me/{{ car.owner.whatsapp_number }}?text=Hello,%20I'm%20contacting%20you%20through%20CarLnk.%20I%20am%20interested%20in%20the%20listed%20{{ car.model_name }}%20going%20for%20USD%20{{ car.price_per_day }}/day." class="btn btn-lg btn-success mr-1" id="rounded-mid"><i class="fab fa-whatsapp fa-xl"></i> WhatsApp</a>
+              <button class="btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#carModal" id="rounded-end"><i class="fas fa-envelope fa-xl"></i> Email</button>
+            </div>
           </div>
         </div>
       </div>
