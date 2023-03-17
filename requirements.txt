@@ -9,6 +9,7 @@ colorama
 crispy-bootstrap5
 Django
 django-compat
+django-cors-headers
 django-crispy-forms
 django-storages
 gunicorn

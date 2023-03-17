@@ -1,8 +1,8 @@
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['carlnk.co','www.carlnk.co']
+ALLOWED_HOSTS = ['https://carlnk.co', 'https://www.carlnk.co']
 
 # DATABASE
 DATABASES = {
@@ -15,6 +15,7 @@ DATABASES = {
         'PORT': os.getenv('DATABASE_PORT'),
     }
 }
+
 
 # Media and staticfiles boto
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')

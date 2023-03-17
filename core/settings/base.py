@@ -11,6 +11,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
+CORS_ORIGIN_WHITELIST = [
+    'https://carlnk.co', 
+    'https://www.carlnk.co'
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://carlnk.co', 
+    'https://www.carlnk.co'
+]
+
+CORS_ALLOW_HEADERS = "access-control-allow-origin"
 
 # Application definition
 
@@ -23,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'storages',
+    'corsheaders',
     'accounts',
     'owners',
     'bookings',
@@ -43,6 +55,7 @@ LOGIN_URL = '/login/'
 SITE_ID = 1 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -123,3 +136,4 @@ sentry_sdk.init(
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CORS_ORIGIN_ALLOW_ALL = True
