@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG = os.getenv('DEBUG')
+DEBUG = False
 
 ALLOWED_HOSTS = ['carlnk.co','www.carlnk.co']
 
