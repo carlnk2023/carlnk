@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = ['carlnk.co','www.carlnk.co']
 
@@ -26,7 +26,7 @@ CSRF_TRUSTED_ORIGINS = ['https://carlnk.co', 'https://www.carlnk.co']
 
 # Media and Staticfiles
 STATIC_URL = 'static/'
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
