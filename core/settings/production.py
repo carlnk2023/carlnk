@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://carlnk.co', 'https://www.carlnk.co']
+ALLOWED_HOSTS = ['carlnk.co', 'www.carlnk.co']
 
 # DATABASE
 DATABASES = {
@@ -55,4 +55,3 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 # STRIPE APIs
 SENDGRID_API_KEY = os.getenv('SENDGRID_API_LIVE_KEY')
-
