@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail, From, ReplyTo
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, logout, login as dj_login
 from accounts.forms import UserAuthenticationForm
@@ -41,9 +42,9 @@ def car_search_ajax(request):
 	if request.method == 'GET':
 		cars = CarCategory.objects.exclude(inventory_available='NO')
 		if transmission_manual:
-			cars = cars.filter(transmission='Manual')
+			cars = cars.filter(Q(transmission='Manual') | Q(transmission='Both'))
 		if transmission_automatic:
-			cars = cars.filter(transmission='Automatic')
+			cars = cars.filter(Q(transmission='Automatic') | Q(transmission='Both'))
 		if mileage:
 			cars = cars.filter(mileage_limit='Unlimited') if mileage == 'unlimited' else cars.filter(mileage_limit='Limited')
 		if pickup_location:

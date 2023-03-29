@@ -266,17 +266,18 @@
       <div class="col-md-8">
         <div class="row mb-3">
           <div class="col-sm-12 col-md-6 mr-auto">
-            <select class="form-select float-right" aria-label="Default select example">
-              <option value="">Sort by: Latest</option>
+            <select id="sortBy" class="form-select float-right" aria-label="Default select example">
+              <option value="ascending">Price: Low to High</option>
+              <option value="descending">Price: High to Low</option>
             </select>
           </div>
         </div>
-        <div class="row card-container">
+        <div class="row card-container cars-list">
           {% for car in cars %}
-          <div class="col-sm-6">
+          <div class="col-sm-6 car-item">
             <a href="{% url 'single_car' car.owner.business_name_slug car.model_name_slug car.pk %}">
               <div class="card result shadow mb-5 bg-white rounded"> 
-                  <img src="{{ car.model_image.url }}" class="img-fluid rounded-start">
+                  <img src="{{ car.model_image.url }}" class="img-fluid rounded-start" style="width: 100%; height: 200px; object-fit: contain;">
                   <div class="card-body">
                     <div class="row card-title">
                       <div class="col-8">
@@ -293,7 +294,7 @@
                       </div>
                       
                     </div>
-                    <h5 class="text-primary car-price" style="font-weight: bold;">USD {{ car.price_per_day }}<span class="text-muted" style="font-weight: normal;"> / day</span></h5>
+                    <h5 class="text-primary card-price" style="font-weight: bold;">USD {{ car.price_per_day }}<span class="text-muted" style="font-weight: normal;"> / day</span></h5>
                     <div class="d-flex">
                         <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">{{ car.transmission }}</h5>
                         <h5><span class="badge rounded-pill text-bg-transparent border text-dark mr-3">{{ car.doors }} <img alt="door" src="{% static 'images/door.png' %}" width="50%"></span></h5>
@@ -432,6 +433,29 @@
       </div>
   </div>
 </section>
+
+<script>
+  var sortBy = document.getElementById("sortBy");
+  var carsList = document.querySelector('.cars-list');
+
+  sortBy.addEventListener('change', () => {
+    var cards = Array.from(carsList.querySelectorAll('.car-item'));
+    if (sortBy.value == 'ascending') {
+      cards.sort((a, b) => {
+        var priceA = parseInt(a.querySelector('.card-price').innerText.replace('USD ', ''));
+        var priceB = parseInt(b.querySelector('.card-price').innerText.replace('USD ', ''));
+        return priceA - priceB;
+      });
+    } else if (sortBy.value == 'descending') {
+      cards.sort((a, b) => {
+        var priceA = parseInt(a.querySelector('.card-price').innerText.replace('USD ', ''));
+        var priceB = parseInt(b.querySelector('.card-price').innerText.replace('USD ', ''));
+        return priceB - priceA;
+      })
+    }
+    cards.forEach(card => carsList.appendChild(card));
+  });
+</script>
 
 <script>
   var checkboxes = document.querySelectorAll('input[name="rental_min_1"], input[name="rental_min_2"], input[name="rental_min_7"]');

@@ -4,6 +4,7 @@
     <meta name="description" content="Discover the best car rental deals in Zimbabwe with CarLnk. Our platform connects you to a wide selection of affordable and reliable rental cars. Whether you're a business traveler or a tourist, find the perfect vehicle to suit your needs and budget.  Our easy-to-use platform allows you to quickly search and compare rental options, with flexible pick-up and drop-off locations. Start your journey with CarLnk today.">
     <meta name="keywords" content="car rental, Zimbabwe, affordable car rentals, car rental deals, online car rental marketplace, CarLnk"> 
 {% endblock meta %}
+
 {% load static %}
 
 {% block content %}
@@ -27,6 +28,7 @@
         background-color: #f8f9fa;
         }
 </style>
+
 
     <div class="hero-wrap ftco-degree-bg" style="background-image: url({% static 'images/renters_background_2.jpg' %});" data-stellar-background-ratio="0.5">
         <div class="overlay" style="opacity: 0.4;"></div>
@@ -57,25 +59,16 @@
     <section class="ftco-section ftco-no-pt bg-light">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-12 heading-section text-center ftco-animate mb-5">
-                    <h3 class="mt-5" style="font-weight: 500;">We link you with the best car rental brands in Zimbabwe</h3>
+                <div class="col-md-12 heading-section text-center ftco-animate mt-3">
+                    <h2 class="mt-5">We link you with the best car rental brands in Zimbabwe</h2>
                 </div>
-            </div>
-            <div class="row justify-content-center ftco-animate pl-4">
-                {% for owner in owners %}
-                    <div class="col-md-2 col-sm-6 col-6 mb-4">
-                        <div class="card bg-transparent" style="width:80%;">
-                            <img src="{{ owner.logo.url }}" class="card-img-top" alt="logo">
-                        </div>
-                    </div>
-                {% endfor %}
             </div>
         </div>
     </section>
 
     <section class="ftco-section">
         <div class="container">
-            <div class="row justify-content-center mb-5">
+            <div class="row justify-content-center mb-5 mt-5">
                 <div class="col-md-7 text-center heading-section ftco-animate">
                     <span class="subheading">Simple - Cheap - Efficient</span>
                     <h2 class="mb-3">Why choose us?</h2>

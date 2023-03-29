@@ -4,6 +4,6 @@ from .models import Owner
 
 class OwnerAdmin(admin.ModelAdmin):
 	list_display = ('user', 'business_name', 'date_created')
-	search_fields = ('business_name', 'last_name', 'phone_number', 'whatsapp_number')
+	search_fields = ('business_name', 'first_name', 'last_name', 'phone_number', 'whatsapp_number')
 
 admin.site.register(Owner, OwnerAdmin)
