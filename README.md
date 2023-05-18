@@ -1,2 +1,5 @@
-# carlnk
-CarLnk online car rental marketplace source code
+website: carlnk.co
+
+CarLnk is an online car rental marketplace for locals to easily find and rent cars from the local car rental businessess.
+
+Developed with Django, HTML, CSS and Javascript
